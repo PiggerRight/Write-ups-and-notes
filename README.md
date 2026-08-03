@@ -1,4 +1,4 @@
-# Write-ups
+# Write-ups-and-notes
 
 Welcome to my CTF write-up repository!
 
@@ -21,7 +21,7 @@ I created this repository to:
 ## Repository Structure
 
 ```
-Write-ups/
+Write-ups-and-notes/
 │
 ├── OverTheWire/
 │   └── Bandit/

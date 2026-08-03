@@ -34,4 +34,4 @@ Write-ups-and-notes/
 
 These write-ups are intended for educational purposes only. Please respect the rules and policies of each CTF platform regarding the publication of solutions.
 
-Happy hacking! 🚀
+Happy hacking!

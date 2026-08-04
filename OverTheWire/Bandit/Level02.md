@@ -28,7 +28,7 @@ ls
 
 Confirm that `-` is here.
 
-### Step 3: Open the file and get the password.
+### Step 2: Open the file and get the password.
 
 ```bash
 cat ./-

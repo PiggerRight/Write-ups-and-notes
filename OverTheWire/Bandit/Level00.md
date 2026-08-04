@@ -65,7 +65,7 @@ Syntax:
 ssh [options] [host_name]
 ```
 
-Useful Options:
+`[options]`
 
 - `-p [port_number]` — specify the port number. The default port is 22.
 - `-l [user_name]` — specify the login username. It is equivalent to writing the username before the host name using the `[user_name]@[host_name]` syntax.

@@ -68,8 +68,12 @@ ls [options] [path]
 
 `[path]`
 
+- `[path]` can be absolute or relative path.
 - If `[path]` is omitted or `[path] == .`, `[path]` equals to the current directory.
 - If `[path] == ..`, `[path]` equals to the parent directory.
+- If `[path] == ~`, `[path]` equals to the home directory.
+- If `[path] == ../..`, `[path]` equals to the grandparent directory.
+- If `[path] == /`, `[path]` equals to the root directory.
 
 `[options]`
 

@@ -107,10 +107,14 @@ Display the contents of file(s).
 Syntax:
 
 ```bash
-cat [shell_redirection] [file...]
+cat [options] [files...]
 ```
 
-`[file...]`
+```bash
+cat [shell_redirection] [files...]
+```
+
+`[files...]`
 
 - Can display multiple files
 

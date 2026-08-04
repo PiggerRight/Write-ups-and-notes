@@ -2,7 +2,7 @@
 
 This repository contains my write-ups and notes while solving the **OverTheWire Bandit** wargame.
 
-The main purpose of this repository is **learning**, not simply collecting solutions. Each write-up documents my thought process, the commands I used, and the Linux concepts I learned throughout the challenges.
+Bandit is the starting point of my Linux journey, helping me build a solid foundation in Linux command-line usage for CTFs and cybersecurity. Each write-up documents my thought process, the commands I used, and the Linux concepts I learned throughout the challenges.
 
 ## About
 

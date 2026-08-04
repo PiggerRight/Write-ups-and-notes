@@ -53,7 +53,7 @@ After I enter the password `bandit0`, I successfully logged in to the Bandit ser
 
 ---
 
-## Commands Used / What I've learned
+## Key Takeaways
 
 ### ssh 
 

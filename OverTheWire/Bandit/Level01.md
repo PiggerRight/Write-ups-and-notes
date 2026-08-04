@@ -66,10 +66,12 @@ Syntax:
 ls [options] [path]
 ```
 
-Useful Options:
+`[path]`
 
 - If `[path]` is omitted or `[path] == .`, `[path]` equals to the current directory.
 - If `[path] == ..`, `[path]` equals to the parent directory.
+
+`[options]`
 
 - `-l` — show detailed information (File permissions | Number of links | Owner | Group | File size | Last modified date | File name).
 - `-a` — show hidden files, files beginning with `.` are hidden files.
@@ -89,7 +91,7 @@ Syntax:
 cd [directory]
 ```
 
-Useful Options:
+`[directory]`
 
 - `[directory] == [path]` — move to `[path]` directory, `[path]` must be absolute or relative path.
 - `[directory]` is omited or `[directory] == ~` — move to home directory.
@@ -105,19 +107,22 @@ Display the contents of file(s).
 Syntax:
 
 ```bash
-cat [options] [file...]
+cat [shell_redirection] [file...]
 ```
 
-Useful Options:
+`[file...]`
 
 - Can display multiple files
+
+`[options]`
+
 - `-n` — add line numbers.
 - `-b` — add line numbers except blank lines.
 - `-E` — show end of each line, the `$` marks the end of each line.
 - `-T` — Tabs are displayed as `^I`, making them visible.
 - `-A` — This combines several display options, making tabs, line endings, and other non-printing characters visible.
 
-Shell redirection:
+`[shell_redirection]`
 
 - `>` — create file, then write content, press `Ctrl` + `D` to save.
 - `>>` — append file.

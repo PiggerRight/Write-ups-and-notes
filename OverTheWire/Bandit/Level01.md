@@ -74,7 +74,7 @@ Useful Options:
 - `-l` — show detailed information (File permissions | Number of links | Owner | Group | File size | Last modified date | File name).
 - `-a` — show hidden files, files beginning with `.` are hidden files.
 - `-h` — human readable format for file size.
-- `-R` — explore the whole directory tree root from `[path]`.
+- `-R` — explore the whole directory tree rooted from `[path]`.
 - `-t` — sort by last modified time.
 - `-S` — sort by size, largest first.
 - It is able to apply more than one option. Eg: `-la`
@@ -113,9 +113,9 @@ Useful Options:
 - Can display multiple files
 - `-n` — add line numbers.
 - `-b` — add line numbers except blank lines.
-- `-E` - show end of each line, the `$` marks the end of each line.
-- `-T` - Tabs are displayed as `^I`, making them visible.
-- `-A` - This combines several display options, making tabs, line endings, and other non-printing characters visible.
+- `-E` — show end of each line, the `$` marks the end of each line.
+- `-T` — Tabs are displayed as `^I`, making them visible.
+- `-A` — This combines several display options, making tabs, line endings, and other non-printing characters visible.
 
 Shell redirection:
 

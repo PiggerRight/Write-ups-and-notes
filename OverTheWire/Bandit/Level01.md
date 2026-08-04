@@ -44,7 +44,7 @@ cat readme
 
 ---
 
-## Commands Used / What I've learned
+## Key Takeaways
 
 ### pwd
 

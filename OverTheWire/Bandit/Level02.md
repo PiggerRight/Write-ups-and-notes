@@ -47,7 +47,7 @@ Display the contents of file(s).
 Syntax:
 
 ```bash
-cat [options] [file...]
+cat [options] [files...]
 ```
 
 With `[files...]` begin with `-`

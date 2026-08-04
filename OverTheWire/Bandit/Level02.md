@@ -42,10 +42,6 @@ I found out that with files begins with `-`, the prompt may treat them as `[opti
 
 ### cat
 
-Display the contents of file(s).
-
-Syntax:
-
 ```bash
 cat [options] [files...]
 ```

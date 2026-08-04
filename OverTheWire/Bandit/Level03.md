@@ -48,7 +48,7 @@ cat [options] [files...]
 
 With `[files...]` have spaces
 - Before the space we need to add `\`.
-- put them inside single quotes or double quotes. Eg: './--spaces in this filename--'
+- put them inside single quotes or double quotes. Eg: `'./--spaces in this filename--'`
 
 ---
 

@@ -2,11 +2,11 @@
 
 This repository contains my write-ups and notes while solving the **OverTheWire Bandit** wargame.
 
-Bandit is the starting point of my Linux journey, helping me build a solid foundation in Linux command-line usage for CTFs and cybersecurity. Each write-up documents my thought process, the commands I used, and the Linux concepts I learned throughout the challenges.
+Bandit is a beginner-friendly Linux wargame created by **OverTheWire**. It introduces fundamental Linux command-line skills that are widely used in system administration, scripting, and cybersecurity.
 
 ## About
 
-Bandit is a beginner-friendly Linux wargame created by **OverTheWire**. It introduces fundamental Linux command-line skills that are widely used in system administration, scripting, and cybersecurity.
+This repository is the starting point of my Linux journey, helping me build a solid foundation in Linux command-line usage for CTFs and cybersecurity. Each write-up documents my thought process, the commands I used, and the Linux concepts I learned throughout the challenges.
 
 ## Repository Structure
 

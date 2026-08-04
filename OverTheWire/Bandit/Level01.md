@@ -116,7 +116,8 @@ cat [shell_redirection] [files...]
 
 `[files...]`
 
-- Can display multiple files
+- Can display multiple files.
+- Use `*` to read all files in current directory.
 
 `[options]`
 

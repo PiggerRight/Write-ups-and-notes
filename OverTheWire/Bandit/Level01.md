@@ -114,10 +114,6 @@ Syntax:
 cat [options] [files...]
 ```
 
-```bash
-cat [shell_redirection] [files...]
-```
-
 `[files...]`
 
 - Can display multiple files.
@@ -130,11 +126,6 @@ cat [shell_redirection] [files...]
 - `-E` — show end of each line, the `$` marks the end of each line.
 - `-T` — Tabs are displayed as `^I`, making them visible.
 - `-A` — This combines several display options, making tabs, line endings, and other non-printing characters visible.
-
-`[shell_redirection]`
-
-- `>` — create file, then write content, press `Ctrl` + `D` to save.
-- `>>` — append file.
 
 ---
 

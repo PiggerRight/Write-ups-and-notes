@@ -32,9 +32,9 @@ I've tried to search from the root directory with all given properties and read 
 find / -size 33c -user bandit7 -group bandit6 -exec cat {} \; 2>/dev/null
 ```
 
-I wanted to hide the error messages while keeping the successful search results. To filter `Permission denied` results, these result come from stderr stream represented by number `2`. As usual, both stderr and stdout are directed to terminal, so i just redirect stderr to `/dev/null` the file that discard everything written to it.
+I wanted to hide the error messages while keeping the successful search results. To filter `Permission denied` results, these result come from `stderr` stream represented by number `2`. As usual, both `stderr` and `stdout` are directed to terminal, so i just redirect `stderr` to `/dev/null` the file that discard everything written to it.
 
-Finally, only stdout prints its result on the terminal, so I got the password.
+Finally, only `stdout` prints its result on the terminal, so I got the password.
 
 ## Key Takeaways
 
@@ -50,10 +50,10 @@ Every Linux program has three standard streams:
 
 We can rediect these streams as we want. For example, instead of print normal output on the terminal, we can redirect it to a file.
 
-- `>`  — redirect stdout to a file, overwriting its previous contents.
-- `>>` — redirect stdout to a file, append stdout to the end of the file.
-- `2>` — redirect stderr to a file, overwriting its previous contents.
-- `/dev/null` — is a special file that anything written to it disappears forever, stderr are often redirected to here to filter error messages.
+- `>`  — redirect `stdout` to a file, overwriting its previous contents.
+- `>>` — redirect `stdout` to a file, append `stdout` to the end of the file.
+- `2>` — redirect `stderr` to a file, overwriting its previous contents.
+- `/dev/null` — is a special file that anything written to it disappears forever, `stderr` are often redirected to here to filter error messages.
 
 Example:
 
@@ -66,7 +66,7 @@ stdout → output.txt
 stderr → errors.txt
 ```
 
-- `|` — this is called pipe and it sends the stdout of one command (not stderr) into the stdin of another.
+- `|` — this is called pipe and it sends the `stdout` of one command (not `stderr`) into the `stdin` of another.
 
 ```bash
 [command_1] | [command_2]

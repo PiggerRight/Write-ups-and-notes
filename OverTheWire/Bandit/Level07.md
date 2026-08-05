@@ -38,13 +38,15 @@ Finally, only stdout prints its result on the terminal, so I got the password.
 
 ## Key Takeaways
 
-### Shell Redirection
+### Streams
 
 Every Linux program has three standard streams:
 
 - `0` — `stdin`  : input (keyboard by default)
 - `1` — `stdout` : normal output (terminal by default)
 - `2` — `stderr` : error messages (terminal by default) 
+
+### Shell Redirection
 
 We can rediect these streams as we want. For example, instead of print normal output on the terminal, we can redirect it to a file.
 

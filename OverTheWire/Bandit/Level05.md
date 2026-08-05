@@ -66,12 +66,6 @@ Syntax:
 head [options] [files...]
 ```
 
-`[files...]`
-
-- Can display multiple files.
-- Use `*` to read all files in current directory.
-- Beware with file name has `-` at front.
-
 `[options]`
 
 - `-n [n]` or `-[n]` — read from the first to n-th line.

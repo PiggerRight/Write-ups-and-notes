@@ -28,9 +28,7 @@ ls -lah
 head data.txt
 ```
 
-Output:
-
-```bash
+```text
 bracken's       w4m77B7X7GYsOmJz0t0F2GwggoBY9gnH
 packing n5xbRJzpSDgdC6c9q967mzFhM2NrtsRc
 weighty Yy2wte9aVxCwRaD7OE25OoSaXgCh6DEp

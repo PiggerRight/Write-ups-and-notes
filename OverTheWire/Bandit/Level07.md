@@ -50,6 +50,7 @@ Every Linux program has three standard streams:
 
 We can rediect these streams as we want. For example, instead of print normal output on the terminal, we can redirect it to a file.
 
+- `<`  — redirect content of a file to `stdin`.
 - `>`  — redirect `stdout` to a file, overwriting its previous contents.
 - `>>` — redirect `stdout` to a file, append `stdout` to the end of the file.
 - `2>` — redirect `stderr` to a file, overwriting its previous contents.

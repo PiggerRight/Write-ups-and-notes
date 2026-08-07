@@ -78,5 +78,4 @@ echo [options] [string...]
 - `man base64`
 - `man ls`
 - `man pwd`
-- `man cat`
 - [OverTheWire Bandit](https://overthewire.org/wargames/bandit/)

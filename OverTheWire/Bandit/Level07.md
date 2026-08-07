@@ -61,7 +61,7 @@ Example:
 find / > output.txt 2> errors.txt
 ```
 
-```bash
+```text
 stdout → output.txt
 stderr → errors.txt
 ```

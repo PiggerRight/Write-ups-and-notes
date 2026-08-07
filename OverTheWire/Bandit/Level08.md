@@ -72,7 +72,7 @@ grep [options] "[pattern]" [files...]
 
 ### Streams
 
-If a command is designed to read input, it first checks whether you've explicitly given it input (such as a filename). If not, it reads from `stdin`.
+If a command is designed to read input, it first checks whether you've explicitly given it input to read (such as a file and it reads the file's contents). If not, it reads from `stdin`.
 
 ---
 

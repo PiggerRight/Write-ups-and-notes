@@ -68,7 +68,7 @@ grep [options] "[pattern]" [files...]
 `[files...]`
 
 - If `[files...]` is provided, `grep` reads directly from specified files.
-- When `[files...]` is omitted, `grep` reads from `stdin` (data comes from keyboard by default or previous pipe command `stdout` if provided)
+- When `[files...]` is omitted, `grep` reads from `stdin`.
 
 ### Streams
 

@@ -85,7 +85,7 @@ tar -xf data.tar
 ls -lah
 ```
 
-At this time, `data5.bin` was found so we continue with this file.
+At this time, `data5.bin` was found so I continue with this file.
 
 ```bash
 file data5.bin
@@ -94,7 +94,7 @@ tar -xf data5.tar
 ls -lah
 ```
 
-At this time, `data6.bin` was found so we continue with this file.
+At this time, `data6.bin` was found so I continue with this file.
 
 ```bash
 file data6.bin
@@ -107,7 +107,7 @@ tar -xf data6.tar
 ls -lah
 ```
 
-At this time, `data8.bin` was found so we continue with this file.
+At this time, `data8.bin` was found so I continue with this file.
 
 ```bash
 file data8.bin
@@ -126,7 +126,7 @@ rm -r /tmp/PiggerRight
 
 Don't remember to delete temporary space.
 
-**Important**: `gunzip`, `bunzip2` are decompressing commands for `gzip`,`bzip2` file, and `tar -xf` is extracting command for `tar` file. There are many file types so we will not dive in these commands. Remember that these command only accept the correct extention, so we need to rename the file before use them.
+**Important**: `gunzip`, `bunzip2` are decompressing commands for `gzip`,`bzip2` file, and `tar -xf` is extracting command for `tar` file. There are many file types so I will not dive in these commands. Remember that these command only accept the correct extention, so I need to rename the file before use them.
 
 ## Key Takeaways
 

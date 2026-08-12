@@ -272,15 +272,4 @@ xxd [options] [file]
 
 ## References
 
-- `man ls`
-- `man pwd`
-- `man mkdir`
-- `help cd`
-- `man cp`
-- `man rmdir`
-- `man rm`
-- `man cp`
-- `man mv`
-- `man touch`
-- `man file`
 - [OverTheWire Bandit](https://overthewire.org/wargames/bandit/)

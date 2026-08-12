@@ -130,145 +130,62 @@ Don't remember to delete temporary space.
 
 ## Key Takeaways
 
-### Hexdump
+### Bash
 
-Hexdump is a way to display the raw bytes of a file in hexadecimal (base 16) so humans can inspect binary data.
+**Terminal** is an application that provides an interface for interacting with a shell.
 
-Example:
+**Shell** is a program that accepts your commands, interprets them, and runs them on the operating system kernel. **Shell** is also a programming language, this allows **Scripting**.
+
+**Bash** stands for **Bourne Again SHell**, which is a **Shell** that was originally developed for Unix/Linux systems, but it can also run on Windows.
 
 ```text
-00000000: 1f8b 0808 a6f0 3b6a 0203 6461 7461 322e  ......;j..data2.
-00000010: 6269 6e00 0144 02bb fd42 5a68 3931 4159  bin..D...BZh91AY
-00000020: 2653 5904 ab91 e100 001c 7fff fffb bebf  &SY.............
-...
+Command → Terminal → Shell (Bash,...) → Linux Kernel → Hardware
 ```
-**Important**: Unprintable characters are presented by `.`.
 
-Magic number (file signature) is a sequence of bytes at the beginning of the hexdump, it helps to examine the file type.
+### Scripting
 
-Plain text files usually don't have a magic number; while the others have. (Eg: `.png`, `.gz`,...)
+**Script** is a text file containing a sequence of commands that are executed automatically by an interpreter (such as **Bash**).
 
-### file
+Instead of typing commands line by line, we can save it into a file and execute that file. This is usefull when we have to solve repetitive tasks and we can re-use that script many times.
 
-Determine the type of a file by examining its contents, not its filename or extension. This command rely on magic number or the signatures of the file content to examine the file type.
+### Scripting Basics
 
-Syntax:
+**Script structure**
 
 ```bash
-file [options] [files...]
+#!/bin/bash
+
+echo "Hello World"
 ```
 
-### mkdir
+- `#!/bin/bash` tells Linux to execute the script using Bash.
+- Everything below is ordinary Bash commands.
 
-Create directories.
-
-Syntax:
+**Run script**
 
 ```bash
-mkdir [options] [directories_name...]
+bash [file]
 ```
 
-Examples:
+`[file]` — have `.sh` extension.
+
+**Comments**
 
 ```bash
-mkdir projects
+# This is a comment
+
+echo "Hello"
 ```
+
+Comments are ignored by Bash.
+
+**Variables**
 
 ```bash
-mkdir dir1 dir2 dir3
+# This is a comment
+
+echo "Hello"
 ```
-
-```bash
-mkdir -p notes/linux/bandit
-```
-
-`[options]`
-
-- `-p` — create parent directories if they don't exist.
-
-### rmdir
-
-Remove directory. This only works if the directory is empty.
-
-Syntax:
-
-```bash
-rmdir [directory]
-```
-
-### rm
-
-Remove file.
-
-Syntax:
-
-```bash
-rm [options] [file]
-```
-
-`[options]`
-
-- `-r` — remove directory (can be non-empty), replace `[file]` by `[directory]`.
-- `-f` — force to remove anyway.
-- `-i` — ask for confirmation.
-- `-I` — asf for confirmation each file and directory.
-
-### mv
-
-Rename file or directory.
-
-Syntax:
-
-```bash
-mv [old_name] [new_name]
-```
-
-Move files.
-
-Syntax:
-
-```bash
-mv [file] [path (directory)]
-```
-
-### cp
-
-Copy file or directory.
-
-```bash
-cp [file] [file]
-```
-
-```bash
-cp -r [directory] [directory]
-```
-
-### touch
-
-Creates an empty file. If the file already exists, `touch` updates its modification timestamp.
-
-Syntax:
-
-```bash
-touch [file]
-```
-
-**Important**: When a file used after `>`, if the file already exists, it is truncated (its contents are erased); if the file doesn't exist, it is created.
-
-### xxd
-
-Create a hexdump of a binary file. The hexdump is stored in a plain text file.
-
-Syntax:
-
-```bash
-xxd [options] [file]
-```
-
-`[file]` — If `[file]` is omitted, `xxd` reads from `stdin`.
-
-`[options]`
-`-r` — recontruct original binary file of a hexdump.
 
 ## References
 

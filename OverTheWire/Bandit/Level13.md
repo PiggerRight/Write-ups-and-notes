@@ -26,14 +26,6 @@ ls -lah
 ### Step 2: Examine `data.txt`
 
 ```bash
-mkdir /tmp/PiggerRight
-cd /tmp/PiggerRight
-cp /home/bandit12/data.txt data.txt
-```
-
-I maka a temporary space to work with and copy `data.txt` to this space.
-
-```bash
 file data.txt
 head data.txt
 ```
@@ -41,6 +33,14 @@ head data.txt
 This is a plain text file containing a hexdump. The first bytes sequence of the file is `1f8b`, which is the magic number of a `gzip` file.
 
 ### Step 3: Recontruct the original binary file.
+
+```bash
+mkdir /tmp/PiggerRight
+cd /tmp/PiggerRight
+cp /home/bandit12/data.txt data.txt
+```
+
+I maka a temporary space to work with and copy `data.txt` to this space.
 
 ```bash
 xxd -r data.txt > data

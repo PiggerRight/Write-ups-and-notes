@@ -86,5 +86,4 @@ ssh -p 2220 bandit0@bandit.labs.overthewire.org
 
 ## References
 
-- `man ssh`
 - [OverTheWire Bandit](https://overthewire.org/wargames/bandit/)

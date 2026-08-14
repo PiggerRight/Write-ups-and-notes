@@ -65,7 +65,7 @@ uniq [options] [input_file] [output_file]
 
 `input_file` — if no file provided, `uniq` reads from `stdin`.
 
-`output_file` — if no file provided, `stdout` print on Terminal be default.
+`output_file` — if no file provided, `stdout` print on Terminal by default.
 
 `[options]`
 

@@ -89,9 +89,4 @@ find -size 1033c -exec cat {} \;
 
 ## References
 
-- `man pwd`
-- `man ls`
-- `help cd`
-- `man cat`
-- `man find`
 - [OverTheWire Bandit](https://overthewire.org/wargames/bandit/)

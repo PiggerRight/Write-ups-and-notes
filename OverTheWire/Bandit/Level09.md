@@ -76,8 +76,4 @@ uniq [options] [input_file] [output_file]
 
 ## References
 
-- `man pwd`
-- `man ls`
-- `man sort`
-- `man uniq`
 - [OverTheWire Bandit](https://overthewire.org/wargames/bandit/)

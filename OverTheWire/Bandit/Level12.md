@@ -49,9 +49,9 @@ Syntax:
 tr [options] '[SET1]' '[SET2]'
 ```
 
-`[SET1]` — characters to search for.
+`[SET1]` — characters to be searched for.
 
-`[SET2]` — characters to replace them with.
+`[SET2]` — characters to be replaced.
 
 `[options]`
 
@@ -83,8 +83,4 @@ HELLO WORLD
 
 ## References
 
-- `man tr`
-- `man cat`
-- `man ls`
-- `man pwd`
 - [OverTheWire Bandit](https://overthewire.org/wargames/bandit/)

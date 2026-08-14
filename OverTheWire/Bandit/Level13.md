@@ -132,7 +132,7 @@ Don't remember to delete temporary space.
 
 ### Hexdump
 
-Hexdump is a way to display the raw bytes of a file in hexadecimal (base 16) so humans can inspect binary data.
+**Hexdump** is a way to display the raw bytes of a binary file in hexadecimal (base 16) so human can inspect binary data.
 
 Example:
 
@@ -142,11 +142,11 @@ Example:
 00000020: 2653 5904 ab91 e100 001c 7fff fffb bebf  &SY.............
 ...
 ```
-**Important**: Unprintable characters are presented by `.`.
+**Unprintable characters** are presented by `.`.
 
-Magic number (file signature) is a sequence of bytes at the beginning of the hexdump, it helps to examine the file type.
+**Magic number** (file signature) is a sequence of bytes at the beginning of the hexdump, it helps to examine the file type. Sometimes it can be sequence of characters instead of numbers.
 
-Plain text files usually don't have a magic number; while the others have. (Eg: `.png`, `.gz`,...)
+Plain text files usually don't have a magic number, while the others have. (Eg: `.png`, `.gz`,...)
 
 ### file
 
@@ -160,7 +160,7 @@ file [options] [files...]
 
 ### mkdir
 
-Create directories.
+Creates directories.
 
 Syntax:
 
@@ -188,7 +188,7 @@ mkdir -p notes/linux/bandit
 
 ### rmdir
 
-Remove directory. This only works if the directory is empty.
+Removes directory. This only works if the directory is empty.
 
 Syntax:
 
@@ -198,7 +198,7 @@ rmdir [directory]
 
 ### rm
 
-Remove file.
+Removes file.
 
 Syntax:
 
@@ -262,13 +262,14 @@ Create a hexdump of a binary file. The hexdump is stored in a plain text file.
 Syntax:
 
 ```bash
-xxd [options] [file]
+xxd [options] [files...]
 ```
 
-`[file]` — If `[file]` is omitted, `xxd` reads from `stdin`.
+`[files...]` — If `[files...]` is omitted, `xxd` reads from `stdin`.
 
 `[options]`
-`-r` — recontruct original binary file of a hexdump.
+
+- `-r` — recontruct original binary file of a hexdump.
 
 ## References
 

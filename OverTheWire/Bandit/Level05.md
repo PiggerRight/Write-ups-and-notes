@@ -75,9 +75,4 @@ head [options] [files...]
 
 ## References
 
-- `man pwd`
-- `man ls`
-- `help cd`
-- `man cat`
-- `man head`
 - [OverTheWire Bandit](https://overthewire.org/wargames/bandit/)

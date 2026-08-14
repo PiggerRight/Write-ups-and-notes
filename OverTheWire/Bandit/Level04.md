@@ -46,14 +46,10 @@ Look up inside `inhere` directory and we can directly see a hidden file named `.
 cat ...Hiding-From-You
 ```
 
-Read that file and get the answer.
+Read that file and get the password.
 
 ---
 
 ## References
 
-- `man pwd`
-- `man ls`
-- `help cd`
-- `man cat`
 - [OverTheWire Bandit](https://overthewire.org/wargames/bandit/)

@@ -35,17 +35,15 @@ The only thing left that I need to do is decode the Base64 text of the file and 
 
 ### base64
 
-Base64 is a way to represent binary data as printable text, because many protocols and file formats expect printable text instead of arbitrary bytes. It is much more compact than writing the binary as a string of 0s and 1s, although it is still larger than the original binary data.
+**Base64** is a way to represent binary data as printable text, because many protocols and file formats expect printable text instead of arbitrary bytes. It is much more compact than writing the binary as a string of 0s and 1s, although it is still larger than the original binary data.
 
 In Linux, `base64` is a command-line utility used to encode binary (or text) data into Base64 and decode Base64 back to its original form.
 
 Syntax:
 
 ```bash
-base64 [options] [file]
+base64 [options] [files...]
 ```
-
-`[file]` — if `[file]` is omitted, `base64` reads from `stdin`.
 
 `[options]`
 
@@ -74,8 +72,4 @@ echo [options] [string...]
 
 ## References
 
-- `man echo`
-- `man base64`
-- `man ls`
-- `man pwd`
 - [OverTheWire Bandit](https://overthewire.org/wargames/bandit/)

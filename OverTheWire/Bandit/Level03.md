@@ -54,7 +54,4 @@ With `[files...]` have spaces
 
 ## References
 
-- `man pwd`
-- `man ls`
-- `man cat`
 - [OverTheWire Bandit](https://overthewire.org/wargames/bandit/)

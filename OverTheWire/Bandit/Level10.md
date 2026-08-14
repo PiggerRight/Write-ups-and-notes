@@ -40,10 +40,8 @@ Extracts printable text strings from binary files or non-text file, which may co
 Syntax:
 
 ```bash
-strings [options] [file]
+strings [options] [files,...]
 ```
-
-`[file]` — the binary or text file to examine, `strings` is designed to read file.
 
 `[options]`
 
@@ -52,7 +50,4 @@ strings [options] [file]
 
 ## References
 
-- `man pwd`
-- `man ls`
-- `man strings`
 - [OverTheWire Bandit](https://overthewire.org/wargames/bandit/)

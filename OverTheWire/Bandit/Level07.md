@@ -79,6 +79,4 @@ The normal output of `[command_1]` becomes the input of `[command_2]`
 
 ## References
 
-- `man cat`
-- `man find`
 - [OverTheWire Bandit](https://overthewire.org/wargames/bandit/)

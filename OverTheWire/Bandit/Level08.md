@@ -78,7 +78,4 @@ If a command is designed to read input, it first checks whether you've explicitl
 
 ## References
 
-- `man head`
-- `man ls`
-- `man grep`
 - [OverTheWire Bandit](https://overthewire.org/wargames/bandit/)

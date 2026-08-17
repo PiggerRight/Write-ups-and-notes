@@ -14,9 +14,9 @@ This repository is the starting point of my Linux journey, helping me build a so
 OverTheWire/
 └── Bandit/
     ├── README.md
-    ├── Level00.md
-    ├── Level01.md
-    ├── Level02.md
+    ├── Leve00.md
+    ├── Leve01.md
+    ├── Leve02.md
     ├── ...
 ```
 

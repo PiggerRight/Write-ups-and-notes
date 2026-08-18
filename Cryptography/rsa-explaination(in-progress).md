@@ -66,9 +66,9 @@
 
   We have known what is Asymmetric cryptography and its usage, but how to make the "lock and key" mechanism works on computers, how to generate public key and private key ???
 
-  In common, the pairs of keys are generated based on several mathematical formulars. These formulars are easy to be computed in the intended direction but seem impossible in the inverse direction.
+  In general, key pairs are generated using mathematical formulas. These formulas are easy to compute in the intended direction but difficult in the inverse direction.
 
-  **RSA**, stands for "Rivest-Shamir-Adleman" — the inventors of **RSA**, is also a mathematical formular for generating keys.
+  **RSA**, named after its inventors Rivest, Shamir, and Adleman, is also an asymmetric cryptographic algorithm whose key generation and cryptographic operations are based on mathematical theory.
 
 ### General idea
 
@@ -76,24 +76,24 @@
   
   - Choose two prime numbers: `p` and `q`
   - `n = p.q`
-  - Choose `φ` is number of integers that less than and coprime with `n` → Using Euler totient function: `φ(n) = (p - 1).(q - 1)`
-  - Choose `e` and `d` that `e.d ≡ 1 (mod φ)` → so `e` is coprime with `φ`
+  - Choose `φ(n)` is number of positive integers that less than and coprime with `n` → Using Euler totient function: `φ(n) = (p - 1).(q - 1)`
+  - Choose `e` and `d` that `e.d ≡ 1 (mod φ(n))` → so `e` is coprime with `φ(n)` → choose `e` first then find feasible `d`
 
   **Prove**: Euler's totient function
 
   - With `p`,`q` are primes and `n = p.q`
-  - There are `p.q - 1` integers less than `n`
-  - The number of integers that are prime with `n` by `p` is `q - 1`: `(p,2p,3p,...,(q-1).p)`
-  - The number of integers that are prime with `n` by `q` is `p - 1`: `(q,2q,3q,...,(p-1).q)`
-  - So the number of integers that are coprime with `n` is `φ(n) = p.q - 1 - (q - 1) - (p - 1) = p.q - p - q + 1 = (p-1).(q-1)`
+  - There are `p.q - 1` positive integers less than `n`
+  - Multiples of `p` is `(p,2p,3p,...,(q-1).p)` → `q - 1`
+  - Multiples of `q` is `(q,2q,3q,...,(p-1).q)` → `p - 1`
+  - So the number of positive integers that are coprime with `n` is `φ(n) = p.q - 1 - (q - 1) - (p - 1) = p.q - p - q + 1 = (p-1).(q-1)` (Proved)
 
-  **Prove**: why `e` is coprime with `φ`
+  **Prove**: why `e` is coprime with `φ(n)`
 
-  - We have: `e.d ≡ 1 (mod φ)` ⇔ `e.d = 1 + φ.k` with `k` is an integer
-  - If `e` isn't prime to `φ` ⇔ `e = z.x` and `φ = z.y` with `z`,`x`,`y` are integers
-  - So now: `e.d = 1 + φ.k` ⇔ `z.x.d = 1 + z.y.k`
-  - Because `z.x.d ≡ 0 (mod z)` and `1 + z.y.k ≡ 1 (mod z)` → `z.x.d = 1 + z.y.k` false so `e.d ≡ 1 (mod φ)` will not happen
-  - So `e` must be prime to `φ` (Proved)
+  - We have: `e.d ≡ 1 (mod φ(n))` ⇔ `e.d = 1 + φ(n).k` with `k` is an integer
+  - If `e` isn't coprime with `φ(n)` ⇔ `e = z.x` and `φ(n) = z.y` with `z`,`x`,`y` are integers
+  - So now: `e.d = 1 + φ(n).k` ⇔ `z.x.d = 1 + z.y.k`
+  - Because `z.x.d ≡ 0 (mod z)` and `1 + z.y.k ≡ 1 (mod z)` → `z.x.d = 1 + z.y.k` false so `e.d ≡ 1 (mod φ(n))` will not happen
+  - So `e` must be coprime to `φ(n)` (Proved)
 
   Then, we can define **public key** and **private key**:
   
@@ -102,34 +102,56 @@
 
   This is where **encryption and decryption** come from:
 
-  - We have an integer `m`, which is coprime with and less than `n`, as a message
-  - To encrypt with private key, we use the formular `m^d ≡ c (mod n)` with `c` is the ciphertext
-  - To decrypt with public key, we use the formular `c^e ≡ m (mod n)` and we can obtain the original message
+  - We have an positive integer `m`, which is coprime with and less than `n`, as a message
+  - To encrypt with public key, we use the formula `m^e ≡ c (mod n)` with `c` is the ciphertext
+  - To decrypt with private key, we use the formula `c^d ≡ m (mod n)` and we can obtain the original message
 
-### Why these two formulars have this *undo* properties ???
+### Why these two formulas have this *undo* properties ???
 
-  Let start with a common property of mod operator: `a.b mod n = (a mod n).(b mod n)` → `a^b mod n = (a mod n)^b`
+  Let start with a common property of `mod` operator: `a.b mod n = [(a mod n).(b mod n)] mod n` → `a^b mod n = [(a mod n)^b] mod n`
 
   So to prove that:
   
-  - `m^d ≡ c (mod n)`
-  - `c^e ≡ m (mod n)`
+  - `m^e ≡ c (mod n)`
+  - `c^d ≡ m (mod n)`
 
   ⇔ Prove that: `m^(e.d) ≡ m (mod n)`
 
-  Because `e.q ≡ 1 (mode φ)` → `e.q = k.φ + 1` with k is an integer
+  Because `e.d ≡ 1 (mod φ(n))` → `e.d = k.φ(n) + 1` with k is an integer
 
-  ⇔ Prove that: `m^(k.φ + 1) ≡ m (mod n)` ⇔ `m.m^(k.φ) ≡ m (mod n)` ⇔ `m^(k.φ) ≡ 1 (mod n)`
+  ⇔ Prove that: `m^(k.φ(n) + 1) ≡ m (mod n)` ⇔ `m.m^(k.φ(n)) ≡ m (mod n)` ⇔ `m^(k.φ(n)) ≡ 1 (mod n)`
 
-  Apply Euler's theorem, with `m` is coprime with `n` →  `m^φ ≡ 1 (mod n)`
+  Apply Euler's theorem, with `m` is coprime with `n` →  `m^φ(n) ≡ 1 (mod n)` ⇔ `(m^φ(n))^k ≡ 1 (mod n)` (Proved)
 
   **Prove**: Euler's theorem
 
-  - There are `φ(n)` integers that are less than and coprime with `n`, let them belong to set `P` and we get a sequence `r_1`,`r_2`,...,`r_φ`
+  - There are `φ(n)` positive integers that are less than and coprime with `n`, let them belong to set `P` and we get a sequence `r_1`,`r_2`,...,`r_φ`
   - With `r_i` is an element of `P`
-  - Because `m` also belongs to `p` → `m.p` is coprime to `n` → `m.p mod n` belongs to `P`
   - When we multiply each `r_i` with `m` and take `mod n`, we can assume that the new sequence is just another arrangement of the original sequence. This is because:
     - `s = m.r_i mod n` is still belongs to `P`: If not, with there will exist `x` that is the factor of `s` and `n` → `s = m.r_i + k.n` → `m.r_i = s - k.n` but when we take `mod x` of both side, while `(s - k.n) mod x = 0`, `m.r_i mod x != 0` because `m` and `r_i` are coprime with `n` so `x` cannot be the factor of them → Proved.
-    - 
+    - Does not exist a pair `r_i` and `r_j` that holds the same value after transformation: Suppose it exists → `m.r_i mod n = m.r_j mod n` ⇔ `r_i mod n = r_j mod n` ⇔ `r_i = r_j + k.n` → with `k` is an integer, if `k = 0`, `r_i = r_j`, so what we supposed is wrong.
 
 ### How RSA acquires the property of *easy to be computed in the intended direction but seem impossible in the inverse direction*
+
+  This property will be met by choosing sufficiently large `p` and `q` so that factoring `n` is computationally infeasible with known classical algorithms. Everyone knows the public key - `(n,e)`, and the ciphertext but to obtain the private key - (n,d), or decrypt ciphertext by using only the public key are difficult:
+  
+  - By decrypting ciphertext using only public key: The formula `m^e ≡ c (mod n)` is impossible to reverse because we know `c` but there are many `m` that match the formula excluding the real `m`
+  - By trying to obtain private key: with huge `n`, it seems impossible for normal computers to compute the exact pair of `p` and `q` → unable to find `d`
+
+### Small example
+
+  Values:
+  
+  - `p = 5`, `q = 11`
+  - `n = 55`
+  - `φ(n) = 40`
+  - `e = 3` → `d = 27`
+
+  With message is `m = 7`
+
+  - Encryption: `c = m^e mod n` → `c = 13`
+  - Decryption: `m = c^d mod n` → `m = 7`
+
+---
+
+## 3. RSA and Nowadays problems

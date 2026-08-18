@@ -66,33 +66,70 @@
 
   We have known what is Asymmetric cryptography and its usage, but how to make the "lock and key" mechanism works on computers, how to generate public key and private key ???
 
-  In common, the pairs of keys are generated based on several mathematical formulars. These formulars are easy to be computed in the intended direction but it seems impossible in the inverse direction.
+  In common, the pairs of keys are generated based on several mathematical formulars. These formulars are easy to be computed in the intended direction but seem impossible in the inverse direction.
 
   **RSA**, stands for "Rivest-Shamir-Adleman" — the inventors of **RSA**, is also a mathematical formular for generating keys.
 
 ### General idea
 
-  At first we have some values
+  At first we have some **values**:
   
   - Choose two prime numbers: `p` and `q`
-  - `n = p * q`
-  - Choose `φ` that coprime with `n`: `φ(n) = (p-1)*(q-1)`
-  - Choose `e` and `d` that `ed ≡ 1 (mod φ)` → so `e` is coprime with `φ`
+  - `n = p.q`
+  - Choose `φ` is number of integers that less than and coprime with `n` → Using Euler totient function: `φ(n) = (p - 1).(q - 1)`
+  - Choose `e` and `d` that `e.d ≡ 1 (mod φ)` → so `e` is coprime with `φ`
 
-  **Prove**:
+  **Prove**: Euler's totient function
 
-  - We have: `ed ≡ 1 (mod φ)` ⇔ `ed = 1 + φk` with `k` is an integer
-  - If `e` isn't prime to `φ` ⇔ `e = nx` and `φ = n.y` with `n`,`x`,`y` are integers
-  - So now: `ed = 1 + φk` ⇔ `nxd = 1 + nyk`
-  - Because `nxd ≡ 0 (mod n)` and `1 + nyk ≡ 1 (mod n)` → `nxd = 1 + nyk` false so `ed ≡ 1 (mod φ)` will not happen
+  - With `p`,`q` are primes and `n = p.q`
+  - There are `p.q - 1` integers less than `n`
+  - The number of integers that are prime with `n` by `p` is `q - 1`: `(p,2p,3p,...,(q-1).p)`
+  - The number of integers that are prime with `n` by `q` is `p - 1`: `(q,2q,3q,...,(p-1).q)`
+  - So the number of integers that are coprime with `n` is `φ(n) = p.q - 1 - (q - 1) - (p - 1) = p.q - p - q + 1 = (p-1).(q-1)`
+
+  **Prove**: why `e` is coprime with `φ`
+
+  - We have: `e.d ≡ 1 (mod φ)` ⇔ `e.d = 1 + φ.k` with `k` is an integer
+  - If `e` isn't prime to `φ` ⇔ `e = z.x` and `φ = z.y` with `z`,`x`,`y` are integers
+  - So now: `e.d = 1 + φ.k` ⇔ `z.x.d = 1 + z.y.k`
+  - Because `z.x.d ≡ 0 (mod z)` and `1 + z.y.k ≡ 1 (mod z)` → `z.x.d = 1 + z.y.k` false so `e.d ≡ 1 (mod φ)` will not happen
   - So `e` must be prime to `φ` (Proved)
 
-
-  Then, we can define public key and private key:
+  Then, we can define **public key** and **private key**:
   
   - Public key: `(n,e)`
   - Private key: `(n,d)`
 
-  This is where *encryption and decryption* come from:
+  This is where **encryption and decryption** come from:
 
-  - We have a number as a message: 
+  - We have an integer `m`, which is coprime with and less than `n`, as a message
+  - To encrypt with private key, we use the formular `m^d ≡ c (mod n)` with `c` is the ciphertext
+  - To decrypt with public key, we use the formular `c^e ≡ m (mod n)` and we can obtain the original message
+
+### Why these two formulars have this *undo* properties ???
+
+  Let start with a common property of mod operator: `a.b mod n = (a mod n).(b mod n)` → `a^b mod n = (a mod n)^b`
+
+  So to prove that:
+  
+  - `m^d ≡ c (mod n)`
+  - `c^e ≡ m (mod n)`
+
+  ⇔ Prove that: `m^(e.d) ≡ m (mod n)`
+
+  Because `e.q ≡ 1 (mode φ)` → `e.q = k.φ + 1` with k is an integer
+
+  ⇔ Prove that: `m^(k.φ + 1) ≡ m (mod n)` ⇔ `m.m^(k.φ) ≡ m (mod n)` ⇔ `m^(k.φ) ≡ 1 (mod n)`
+
+  Apply Euler's theorem, with `m` is coprime with `n` →  `m^φ ≡ 1 (mod n)`
+
+  **Prove**: Euler's theorem
+
+  - There are `φ(n)` integers that are less than and coprime with `n`, let them belong to set `P` and we get a sequence `r_1`,`r_2`,...,`r_φ`
+  - With `r_i` is an element of `P`
+  - Because `m` also belongs to `p` → `m.p` is coprime to `n` → `m.p mod n` belongs to `P`
+  - When we multiply each `r_i` with `m` and take `mod n`, we can assume that the new sequence is just another arrangement of the original sequence. This is because:
+    - `s = m.r_i mod n` is still belongs to `P`: If not, with there will exist `x` that is the factor of `s` and `n` → `s = m.r_i + k.n` → `m.r_i = s - k.n` but when we take `mod x` of both side, while `(s - k.n) mod x = 0`, `m.r_i mod x != 0` because `m` and `r_i` are coprime with `n` so `x` cannot be the factor of them → Proved.
+    - 
+
+### How RSA acquires the property of *easy to be computed in the intended direction but seem impossible in the inverse direction*

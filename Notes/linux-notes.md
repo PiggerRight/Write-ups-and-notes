@@ -778,7 +778,10 @@ df [options]
 
 ### ssh
 
-Securely connects to a remote machine.
+Sercurely connects to a remote server and supports several authentication methods, including password authentication and public-key authentication.
+
+- **Password authentication:** The user proves their identity by providing a password.
+- **Public-key authentication:** The user proves possession of a private key corresponding to a public key stored by the server.
 
 Syntax:
 
@@ -790,6 +793,9 @@ ssh [options] [host_name]
 
 - `-p [port_number]` — specify the port number. The default port is 22.
 - `-l [user_name]` — specify the login username. It is equivalent to writing the username before the host name using the `[user_name]@[host_name]` syntax.
+- `-i [key_file]` — specifies the private key used for authentication.
+
+**Notes**: `ssh` does not send the private key to the server. The private key is used locally to produce cryptographic proof of possession. The server verifies that proof using the corresponding public key.
 
 Examples:
 
@@ -800,5 +806,32 @@ ssh -p 2220 -l bandit0 bandit.labs.overthewire.org
 ```bash
 ssh -p 2220 bandit0@bandit.labs.overthewire.org
 ```
+
+### scp
+
+`scp` stands for **Secure Copy Protocol**. It is a command-line tool for securely copying files between computers over an SSH connection.
+
+Syntax:
+
+```bash
+scp [options] [source_path] [destination_path]
+```
+
+`[options]`
+
+- `-P [port]` — specifies the SSH port to connect to.
+
+`[source_path]`: is the path of the file or directory to copy.
+
+- Remote server: `server:[path]`
+- Normal machine: `[path]`
+
+`[destination_path]`: is where the copied file or directory should be stored.
+
+- Remote server: `server:[path]`
+- Normal machine: `[path]`
+
+**Notes**: `scp` uses SSH connection as its underlying transport for securely transferring files, so we need to provide `scp` with connection information similar to what we provide when using `ssh`.
+
 
 

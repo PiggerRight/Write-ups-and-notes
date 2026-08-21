@@ -1,5 +1,7 @@
 # RSA
 
+## Backstory
+
   The first time I heard about **RSA** was when I watched a short video explaining how it works, and I completely misunderstood what they were talking about.
 
   When I reached Level 13 of OverTheWire's Bandit, I encountered this concept again. This time, I decided to dive into **RSA** and actually understand how it works.
@@ -178,4 +180,25 @@ Therefore, RSA encryption relies on the computational difficulty of certain math
 
 ---
 
-## 3. RSA and Nowadays problems
+## 3. RSA and the Quantum Computing Problem
+
+  As I mentioned, RSA relies on computational difficulty to maintain security against attackers using current technology. As classical computing continues to improve, we can increase the size of numbers used in RSA, making the computations more difficult. However, there is a fundamental problem: increasing the problem size can only deal with improvements in classical computing for so long.
+
+  Everything changes with the development of quantum computing. Quantum computers can solve certain mathematical problems much more efficiently than classical computers. In particular, Shor's algorithm can efficiently solve the integer factorization problem underlying RSA on a sufficiently powerful quantum computer. Since RSA's security heavily depends on the computational difficulty of the factoring problem, quantum computing could allow attackers to obtain private key.
+
+  Cryptography needs to develop new techniques that are believed to remain secure even against quantum computers. This leads us to the field of **post-quantum cryptography**.
+
+---
+
+## Last words
+
+  This write-up is a small introduction to RSA — an asymmetric cryptography algorithm. I hope that anyone who reads this write-up also learns something about RSA!
+
+## References
+
+- [OverTheWire — Bandit](https://overthewire.org/wargames/bandit)
+- [RSA — Wikipedia](https://vi.wikipedia.org/wiki/RSA_(m%C3%A3_h%C3%B3a))
+- [Euler's theorem — Wikipedia](https://en.wikipedia.org/wiki/Euler%27s_theorem)
+- [Euler's totient function — Wikipedia](https://en.wikipedia.org/wiki/Euler%27s_totient_function)
+- [Shor's algorithm — Wikipedia](https://en.wikipedia.org/wiki/Shor%27s_algorithm)
+- [The RSA Encryption Algorithm - How Does It Actually Work + Step-by-Step Example. - BrainWave on Youtube](https://www.youtube.com/watch?v=hm8s6FAc4pg)

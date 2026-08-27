@@ -176,6 +176,15 @@ This property is achieved by choosing sufficiently large `p` and `q` so that fac
 
   Now, in order to obtain `d`, attackers need to find `p` and `q` first by factoring `n = p.q`. When `n` is sufficiently large, it takes an infeasible amount of time for normal computers to factor `n` → making it challenging to obtain `d`.
 
+**By trying to create new private key**
+
+  Now, we need to find another `d` that match the property `e.d ≡ 1 (mod φ(n))`, but you need to find `φ(n)` first. This also lead to the problem of finding `p` and `q`.
+
+On the other hand, with huge `n`,`e`, and `d`, does it possible to compute `m^e mod n = c` and `c^d mod n = m` in an appropriate time? The answer is possible, we have two mathematics tools to solve this problem.
+
+- **Modular reduction**: `a.b ≡ (a mod n).(b mod n) (mod n)` → This lets us keep intermediate numbers small.
+- **Binary exponentiation**: Instead of calculating `m^e` directly, we break the exponent into powers of 2. → So even though `m^e` would be astronomically large, computation is practical.
+
 Therefore, RSA encryption relies on the computational difficulty of certain mathematical problems. Even when the original message is small, secure padding schemes such as OAEP can be used to prevent attacks based on small messages. This algorithm is designed to maintain security against attackers using currently available classical computing resources, because the computational resources required to break RSA are infeasible with current technology. But what happens if attackers have access to more powerful computing resources?
 
 ---

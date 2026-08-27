@@ -776,6 +776,72 @@ df [options]
 
 - `-h` — human readable for disk sizes.
 
+### Localhost
+
+**Localhost** is a hostname that represents the local host (the machine or environment on which the program is running). It allows a computer to make a connection to itself, which is known as loopback.
+
+The standard loopback addresses for localhost are:
+
+- IPv4 — `127.0.0.1`
+- IPv6 — `::1`
+
+On Linux, we can use the hostname `localhost` to refer to the loopback IP address. Depending on the system's configuration, `localhost` can resolve to `127.0.0.1`, `::1`, or both.
+
+Commands to look up the localhost IP address and what `localhost` resolves to:
+
+```bash
+cat /etc/hosts
+```
+
+### Ports
+
+A port is a numbered endpoint used by network services to receive network connections. A service can listen on a specific port, and clients can connect to that port to communicate with the service. Firewall rules can control which connections are allowed.
+
+### nmap
+
+Scans a target and reports reachable ports and their services.
+
+Syntax:
+
+```bash
+nmap [options] [IP_address]
+```
+
+Example output:
+
+```text
+PORT     STATE     SERVICE
+22/tcp   open      ssh
+80/tcp   filtered  http
+```
+
+- `open` — Nmap determined that a service is listening and reachable on that port
+- `closed` — Nmap reached the host, but no service is listening on that port
+- `filtered` — Nmap cannot determine the state because filtering interferes on that port
+
+`[options]`
+
+- `-p [Ports...]` — Scan specific port(s)
+- `-p-` — Scan all TCP ports (1–65535)
+- `-sV` — Detect service/version
+
+### nc
+
+Creates a TCP (default) or UDP connection and sends/receives data.
+
+Syntax:
+
+```bash
+nc [options] [IP_address] [Port]
+```
+
+`[options]`
+
+- `-l` — listen for incoming connections
+- `-u` — create UDP connection
+
+**Notes**: Unlike `ssh`, which requires the connected port to use SSH service that has many application protocols, `nc` just requires connected port to establish a connection, and exchange data without any required application protocols. Therefore, `nc` is useful when investigating an unknown service.
+
 ### ssh
 
 Sercurely connects to a remote server and supports several authentication methods, including password authentication and public-key authentication.
@@ -832,6 +898,5 @@ scp [options] [source_path] [destination_path]
 - Normal machine: `[path]`
 
 **Notes**: `scp` uses SSH connection as its underlying transport for securely transferring files, so we need to provide `scp` with connection information similar to what we provide when using `ssh`.
-
 
 

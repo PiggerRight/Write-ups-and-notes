@@ -8,7 +8,7 @@ The password for the next level can be retrieved by submitting the password of t
 
 ## Initial Thoughts
 
-In this level, we need to access port 30001 on the localhost of the Bandit server again. I already know how to connect to the localhost of the Bandit server, but this port requires an SSL/TLS connection. Therefore, I use openssl s_client to establish a TLS connection.
+In this level, we need to access port `30001` on the localhost of the Bandit server again. I already know how to connect to the localhost of the Bandit server, but this port requires an SSL/TLS connection. Therefore, I use openssl s_client to establish a TLS connection.
 
 ---
 
@@ -28,7 +28,7 @@ The state is open, so a service is listening on this port and is reachable from 
 openssl s_client -connect localhost:30001
 ```
 
-Then, I paste the password for bandit15 into the connection and receive the password for the next level.
+Then, I paste the password for `bandit15` into the connection and receive the password for the next level.
 
 ## Key Takeaways
 

@@ -22,6 +22,8 @@ nmap -p 30001 localhost
 
 The state is open, so a service is listening on this port and is reachable from localhost.
 
+### Step 2: Establish a TLS connection
+
 ```bash
 openssl s_client -connect localhost:30001
 ```

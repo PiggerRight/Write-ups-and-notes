@@ -864,7 +864,7 @@ Scans a target and reports reachable ports and their services.
 Syntax:
 
 ```bash
-nmap [options] [IP_address]
+nmap [options] [IP_address/domain]
 ```
 
 Example output:
@@ -881,7 +881,7 @@ PORT     STATE     SERVICE
 
 `[options]`
 
-- `-p [Ports...]` — Scan specific port(s)
+- `-p [ports...]` — Scan specific port(s)
 - `-p-` — Scan all TCP ports (1–65535)
 - `-sV` — Detect service/version
 
@@ -892,7 +892,7 @@ Creates a TCP (default) or UDP connection and sends/receives data.
 Syntax:
 
 ```bash
-nc [options] [IP_address] [Port]
+nc [options] [IP_address/domain] [port]
 ```
 
 `[options]`
@@ -900,7 +900,34 @@ nc [options] [IP_address] [Port]
 - `-l` — listen for incoming connections
 - `-u` — create UDP connection
 
-**Notes**: Unlike `ssh`, which requires the connected port to use SSH service that has many protocols, `nc` just requires connected port to establish a connection, and exchange data without any required protocols. Therefore, `nc` is useful when investigating an unknown service.
+**Notes**: Unlike `ssh` or `openssl`, which requires the connected port to support many protocols, `nc` just requires connected port to establish a connection, and exchange data without any required protocols. Therefore, `nc` is useful when investigating an unknown service.
+
+### openssl
+
+A command-line toolkit and software library that implements cryptographic protocols and algorithms, especially SSL/TLS.
+
+Syntax:
+
+```bash
+openssl [subcommand] [options]
+```
+
+**`[subcommand]`**
+
+1. `s_client` — Connect to a SSL/TLS server
+
+`[options]`
+
+- `-connect [IP_address/domain]:[port]` — specify the server and port to connect to.
+- `-state` — show detailed TLS handshake information
+- `-showcerts` — show certificates
+- `-servername [SNI]` — Specify the server name for Server Name Indication (SNI)
+
+**Notes**: When using `openssl s_client` to connect to a TLS server over TCP, a TCP connection is established first. Then, the TLS handshake occurs over that TCP connection.
+
+2. `s_server` — Create a simple TLS server
+
+3. `version` — Check the OpenSSL version and build information
 
 ### ssh
 

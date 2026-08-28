@@ -8,7 +8,7 @@ The password for the next level can be retrieved by submitting the password of t
 
 ## Initial Thoughts
 
-In this level, we need to access port `30001` on the localhost of the Bandit server also. Now, I know how to connect to localhost of Bandit server, but it requires a SSL/TLS connection. Therefore, I use `openssl s_client` to establish this connection.
+In this level, we need to access port 30001 on the localhost of the Bandit server again. I already know how to connect to the localhost of the Bandit server, but this port requires an SSL/TLS connection. Therefore, I use openssl s_client to establish a TLS connection.
 
 ---
 
@@ -20,13 +20,13 @@ In this level, we need to access port `30001` on the localhost of the Bandit ser
 nmap -p 30001 localhost
 ```
 
-The state is `open`. Then, I establish a SSL/TLS connection to this port on localhost.
+The state is open, so a service is listening on this port and is reachable from localhost.
 
 ```bash
 openssl s_client -connect localhost:30001
 ```
 
-Finally, I paste the password of the user `bandit15` in and get the password of the next level.
+Then, I paste the password for bandit15 into the connection and receive the password for the next level.
 
 ## Key Takeaways
 

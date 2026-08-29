@@ -50,6 +50,27 @@ ls [options] [path]
 - `-S` — sort by size, largest first.
 - It is able to apply more than one option. (Eg: `-la`,...)
 
+### chmod
+
+Change the permissions of files and directories.
+
+Syntax:
+```bash
+chmod [permission_number] [files...]
+```
+
+`[permission_number]` — a 3-digits integer and each digit defines the permission (read, write and execute) of user, group and others.
+
+- Permission value:
+  - Read    = 4
+  - Write   = 2
+  - Execute = 1
+- Permission number: (Eg: 600)
+  - 6 = Read (4) + Write (2)  = rw-  → Owner:  read and write
+  - 0 = No permissions        = ---  → Group:  no permissions
+  - 0 = No permissions        = ---  → Others: no permissions
+  - Permission: -rw------- (we can see this in the `ls -l` permission collumn)
+
 ### cd
 
 It changes your current directory to another directory.
@@ -213,6 +234,34 @@ head [options] [files...]
 
 - `-n [n]` or `-[n]` — read from the first to n-th line.
 - `-c [n]` — read the first n bytes.
+
+### sed
+
+A stream editor to read and transform text.
+
+Syntax:
+
+```bash
+sed [options] '[sed_command]' [files...]
+```
+
+`[options] '[sed_command]'`
+
+- `-n 'np'` — print line `n` (`$` represent last line)
+- `-n 'n,mp'` — print lines `n-m`
+- `'nd'` — delete line `n` from the output
+- `'nd;md'` — delete line `n` and `m` from the output
+- `'s/old/new/'` — replace the first occurence of `old` with `new` on each line
+- `'s/old/new/g'` — replace all occurences of `old` with `new` on each line
+
+`[options]`
+
+- `-i` — directly modify the file(s)
+
+**Notes**:
+
+- Line-oriented processing: `\n` is treated as a separator between lines and is often removed from the line being processed.
+- Byte-oriented processing: `\n` remains an actual byte in the input.
 
 ### find
 
@@ -923,6 +972,7 @@ openssl [subcommand] [options]
 - `-showcerts` — show certificates
 - `-servername [SNI]` — specify the server name for Server Name Indication (SNI)
 - `-quiet` — changes `s_client` interactive behavior and output by suppressing most connection information and disabling interactive command processing, allowing user input to be sent as application data over the TLS connection.
+- `-nocommands` — disables interactive command processing, allowing user input to be sent as application data over the TLS connection.
 
 **Notes**: When using `openssl s_client` to connect to a TLS server over TCP, a TCP connection is established first. Then, the TLS handshake occurs over that TCP connection.
 

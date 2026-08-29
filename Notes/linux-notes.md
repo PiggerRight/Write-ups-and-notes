@@ -875,15 +875,16 @@ PORT     STATE     SERVICE
 80/tcp   filtered  http
 ```
 
-- `open` — Nmap determined that a service is listening and reachable on that port
-- `closed` — Nmap reached the host, but no service is listening on that port
-- `filtered` — Nmap cannot determine the state because filtering interferes on that port
+- `open` — `nmap` determined that a service is listening and reachable on that port
+- `closed` — `nmap` reached the host, but no service is listening on that port
+- `filtered` — `nmap` cannot determine the state because filtering interferes on that port
 
 `[options]`
 
-- `-p [ports...]` — Scan specific port(s)
-- `-p-` — Scan all TCP ports (1–65535)
-- `-sV` — Detect service/version
+- `-p [ports...]` — scan specific port(s)
+- `-p-` — scan all TCP ports (1–65535)
+- `-sV` — detect service/version
+- `-quiet` — suppresses most s_client diagnostic output and disables its interactive command processing, allowing input to be passed directly as application data over the TLS connection.
 
 ### nc
 

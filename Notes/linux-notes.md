@@ -921,8 +921,8 @@ openssl [subcommand] [options]
 - `-connect [IP_address/domain]:[port]` — specify the server and port to connect to.
 - `-state` — show detailed TLS handshake information
 - `-showcerts` — show certificates
-- `-servername [SNI]` — Specify the server name for Server Name Indication (SNI)
-- `-quiet` — suppresses most connection output and disables its interactive command processing, allowing input to be passed directly as application data over the TLS connection.
+- `-servername [SNI]` — specify the server name for Server Name Indication (SNI)
+- `-quiet` — changes `s_client` interactive behavior and output by suppressing most connection information and disabling interactive command processing, allowing user input to be sent as application data over the TLS connection.
 
 **Notes**: When using `openssl s_client` to connect to a TLS server over TCP, a TCP connection is established first. Then, the TLS handshake occurs over that TCP connection.
 

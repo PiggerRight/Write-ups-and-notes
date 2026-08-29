@@ -884,7 +884,6 @@ PORT     STATE     SERVICE
 - `-p [ports...]` — scan specific port(s)
 - `-p-` — scan all TCP ports (1–65535)
 - `-sV` — detect service/version
-- `-quiet` — suppresses most s_client diagnostic output and disables its interactive command processing, allowing input to be passed directly as application data over the TLS connection.
 
 ### nc
 
@@ -923,6 +922,7 @@ openssl [subcommand] [options]
 - `-state` — show detailed TLS handshake information
 - `-showcerts` — show certificates
 - `-servername [SNI]` — Specify the server name for Server Name Indication (SNI)
+- `-quiet` — suppresses most connection output and disables its interactive command processing, allowing input to be passed directly as application data over the TLS connection.
 
 **Notes**: When using `openssl s_client` to connect to a TLS server over TCP, a TCP connection is established first. Then, the TLS handshake occurs over that TCP connection.
 

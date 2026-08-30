@@ -792,6 +792,12 @@ read [variable]
   - `/lib` — Shared libraries. Similar to DLL files on Windows. Programs depend on these libraries to run.
   - `/srv` — Data served by services.
 
+### Must-know Files
+
+  - `.profile` — startup file commonly read when a **login shell** starts, set up the environment for that user's login shell.
+  - `.bashrc` — startup file commonly read when an **interactive Bash shell** starts, set up the interactive Bash environment.
+  - `.bash_logout` — a file commonly executed when an **interactive login Bash shell** exits.
+
 ### whoami
 
 Show current user
@@ -1017,14 +1023,12 @@ ssh [options] [host_name]
 
 **Notes**: `ssh` does not send the private key to the server. The private key is used locally to produce cryptographic proof of possession. The server verifies that proof using the corresponding public key.
 
-Examples:
+**Notes**: If no command is provided, after the SSH authentication process, the remote machine normally starts an **interactive login shell**, allowing us to enter commands through the remote terminal (`ssh user@host` → **interactive login shell** → you type commands). We can also provide a command to SSH. In this case, SSH executes the command on the remote machine without starting an **interactive login shell** (ssh user@host "command" → execute command remotely → return output → exit).
+
+Syntax:
 
 ```bash
-ssh -p 2220 -l bandit0 bandit.labs.overthewire.org
-```
-
-```bash
-ssh -p 2220 bandit0@bandit.labs.overthewire.org
+ssh [options] [host_name] "[commands]"
 ```
 
 ### scp

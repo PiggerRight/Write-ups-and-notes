@@ -8,7 +8,7 @@ There are 2 files in the `home` directory: `passwords.old` and `passwords.new`. 
 
 ## Initial Thoughts
 
-In this level, the challenge provides two files, and we need to find the only line that differs between them. Therefore, I decided to use diff to compare the files.
+In this level, the challenge provides two files, and we need to find the only line that differs between them. Therefore, I decided to use `diff` to compare the files.
 
 ---
 

@@ -329,6 +329,22 @@ grep [options] "[pattern]" [files...]
 - `-c` — count the matching lines.
 - `-w` — only match the whole word.
 
+### diff
+
+Compare the contents of two files line by line and show their differences.
+
+Syntax:
+
+```bash
+diff [options] [file] [file]
+```
+
+`[options]`
+
+- `-u` — unified format, easier for humans to read, and commonly used in patches
+- `-q` — Only reports whether the files differ.
+- `-s` — Reports when the files are identical.
+
 ### sort
 
 Sorts lines of text alphabetically, numerically, or according to other criteria. Note that `sort` does not change the input files.

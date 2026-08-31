@@ -4,73 +4,6 @@ This is a small notes about almost Linux commands that I have learnt. Commands a
 
 ## Navigation & File Management
 
-### pwd
-
-Displays the absolute path of the current working directory. Useful for confirming where you are before navigating or accessing files.
-
-Syntax:
-
-```bash
-pwd
-```
-
-### ls
-
-List files and direcctories in `[path]` directory.
-
-Syntax:
-
-```bash
-ls [options] [path]
-```
-
-`[path]`
-
-- `[path]` can be absolute or relative path.
-- If `[path]` is omitted or `[path] == .`, `[path]` equals to the current directory.
-- If `[path] == ..`, `[path]` equals to the parent directory.
-- If `[path] == ~`, `[path]` equals to the home directory.
-- If `[path] == ../..`, `[path]` equals to the grandparent directory.
-- If `[path] == /`, `[path]` equals to the root directory.
-
-`[options]`
-
-- `-l` — show detailed information:
-  - File permissions
-  - Number of links
-  - Owner
-  - Group
-  - File size
-  - Last modified date
-  - File name
-- `-a` — show hidden files, files beginning with `.` are hidden files.
-- `-h` — human readable format for file size.
-- `-R` — explore the whole directory tree rooted from `[path]`.
-- `-t` — sort by last modified time.
-- `-S` — sort by size, largest first.
-- It is able to apply more than one option. (Eg: `-la`,...)
-
-### chmod
-
-Change the permissions of files and directories.
-
-Syntax:
-```bash
-chmod [permission_number] [files...]
-```
-
-`[permission_number]` — a 3-digits integer and each digit defines the permission (read, write and execute) of user, group and others.
-
-- Permission value:
-  - Read    = 4
-  - Write   = 2
-  - Execute = 1
-- Permission number: (Eg: 600)
-  - 6 = Read (4) + Write (2)  = rw-  → Owner:  read and write
-  - 0 = No permissions        = ---  → Group:  no permissions
-  - 0 = No permissions        = ---  → Others: no permissions
-  - Permission: -rw------- (we can see this in the `ls -l` permission collumn)
-
 ### cd
 
 It changes your current directory to another directory.
@@ -184,6 +117,110 @@ Syntax:
 ```bash
 touch [options] [files...]
 ```
+
+### pwd
+
+Displays the absolute path of the current working directory. Useful for confirming where you are before navigating or accessing files.
+
+Syntax:
+
+```bash
+pwd
+```
+
+### ls
+
+List files and direcctories in `[path]` directory.
+
+Syntax:
+
+```bash
+ls [options] [path]
+```
+
+`[path]`
+
+- `[path]` can be absolute or relative path.
+- If `[path]` is omitted or `[path] == .`, `[path]` equals to the current directory.
+- If `[path] == ..`, `[path]` equals to the parent directory.
+- If `[path] == ~`, `[path]` equals to the home directory.
+- If `[path] == ../..`, `[path]` equals to the grandparent directory.
+- If `[path] == /`, `[path]` equals to the root directory.
+
+`[options]`
+
+- `-l` — show detailed information:
+  - File permissions
+  - Number of links
+  - Owner
+  - Group
+  - File size
+  - Last modified date
+  - File name
+- `-a` — show hidden files, files beginning with `.` are hidden files.
+- `-h` — human readable format for file size.
+- `-R` — explore the whole directory tree rooted from `[path]`.
+- `-t` — sort by last modified time.
+- `-S` — sort by size, largest first.
+- It is able to apply more than one option. (Eg: `-la`,...)
+
+### chmod
+
+Change the permissions of files and directories.
+
+Syntax:
+```bash
+chmod [permission_number] [files...]
+```
+
+`[permission_number]` — a 3-digits integer and each digit defines the permission (read, write and execute) of user, group and others.
+
+- Permission value:
+  - Read    = 4
+  - Write   = 2
+  - Execute = 1
+- Permission number: (Eg: 600)
+  - 6 = Read (4) + Write (2)  = rw-  → Owner:  read and write
+  - 0 = No permissions        = ---  → Group:  no permissions
+  - 0 = No permissions        = ---  → Others: no permissions
+  - Permission: -rw------- (we can see this in the `ls -l` permission collumn)
+ 
+### Setuid
+
+**Setuid** (Set User ID) is a special permission bit for executable files in Linux. When a setuid executable is run, the program runs with the **effective user ID (EUID) of the file owner** instead of the user who executed it.
+
+For example:
+
+```text
+-rwsr-xr-x 1 alice alice program
+```
+
+The `s` in the owner's execute permission indicates that the **setuid bit** is enabled.
+
+If `bob` executes the program:
+
+```bash
+./program
+```
+
+the process has:
+
+```text
+Real user ID (UID):      bob
+Effective user ID (EUID): alice
+```
+
+Now, the program can perform actions with `alice`'s effective privileges.
+
+Setuid itself does **not** define what actions the user can perform. It only causes the executable to run with the file owner's effective privileges. The **program's implementation** determines what can actually be done with those privileges.
+
+For example, a setuid program can:
+
+* Perform a fixed privileged action.
+* Accept specific arguments and perform corresponding actions.
+* Accept a command from the user and execute it with the owner's effective privileges.
+
+Therefore, a setuid program that allows arbitrary command execution can be dangerous if the file owner has higher privileges.
 
 
 
@@ -507,7 +544,7 @@ xxd [options] [files...]
 
 ## Shell & Scripting
 
-### Bash
+### Terminal, Shell, and Bash
 
 **Terminal** is an application that provides an interface for interacting with a shell.
 
@@ -518,6 +555,51 @@ xxd [options] [files...]
 ```text
 Command → Terminal → Shell (Bash,...) → Linux Kernel → Hardware
 ```
+
+### Commands
+
+**Commands** are instructions given by the user to the shell to perform specific actions. When a command refers to an external program, the shell finds and executes that program.
+
+Example:
+
+```bash
+cat file1.txt file2.txt file3.txt
+```
+
+The shell interprets the command as:
+
+```text
+cat file1.txt file2.txt file3.txt
+│   │         │         │
+│   └─────────┴─────────┴── arguments
+└────────────────────────── program/command
+```
+
+The shell searches for the `cat` program in the directories listed in `$PATH` and executes it. The files `file1.txt`, `file2.txt`, and `file3.txt` are passed to `cat` as arguments.
+
+If the command does not contain a path, the shell searches for the program in `$PATH`:
+
+```bash
+cat file.txt
+```
+
+We can also specify the program's path explicitly:
+
+```bash
+./program
+```
+
+Here, `./` specifies that `program` is located in the current directory.
+
+Or:
+
+```bash
+/usr/bin/cat file.txt
+```
+
+Here, `/usr/bin/cat` is an absolute path to the program.
+
+Therefore, when executing a program, we can use a relative path, an absolute path, or no path at all if the program can be found through `$PATH`.
 
 ### Streams
 

@@ -950,6 +950,23 @@ cat /etc/hosts
 
 A **port** is a numbered endpoint used by network services to receive network connections. A service can listen on a specific port, and clients can connect to that port to communicate with the service. Firewall rules can control which connections are allowed.
 
+Linux traditionally restricts normal users from binding to ports below `1024`:
+
+- `0–1023`       → privileged ports
+- `1024–65535`   → generally available to normal users
+
+This restriction helps prevent unprivileged users from binding to ports traditionally associated with important system services.
+
+Also a port can fail for other reasons. For example:
+
+- `Permission denied`       → the current user does not have permission to bind to the port.
+- `Address already in use`  → another process is already using the address and port combination.
+
+Therefore, when creating a listener, the port should be both:
+
+- Usable by the current user.
+- Not already being used by another process.
+
 ### SSL/TLS
 
 **SSL/TLS** are protocols used to securely communicate over a network.

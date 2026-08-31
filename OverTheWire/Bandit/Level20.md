@@ -20,7 +20,20 @@ This means I can use `bandit20-do` to read `/etc/bandit_pass/bandit20`.
 
 ### Step 1: Execute `bandit20-do` without arguments
 
-First, I execute `bandit20-do` without arguments to find out how to use it.
+First, I checked my current directory and listed its contents.
+
+```bash
+pwd
+ls -lah
+```
+
+I found a file named `bandit20-do` and checked its file type.
+
+```bash
+file bandit20-do
+```
+
+It is the setuid binary that the challenge informed. Then, I execute `bandit20-do` without arguments to find out how to use it.
 
 ```bash
 ./bandit20-do

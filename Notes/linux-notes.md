@@ -618,7 +618,8 @@ We can rediect these streams as we want. For example, instead of print normal ou
 - `<`  — redirect content of a file to `stdin`.
 - `>`  — redirect `stdout` to a file, overwriting its previous contents. If the file doesn't exist, it is created.
 - `>>` — redirect `stdout` to a file, append `stdout` to the end of the file.
-- `2>` — redirect `stderr` to a file, overwriting its previous contents.
+- `2>` — redirect `stderr` to a file, overwriting its previous contents. If the file doesn't exist, it is created.
+- `&>` — redirect both `stdout` and `stderr` to a file, overwriting its previous contents. If the file doesn't exist, it is created.
 - `/dev/null` — is a special file that anything written to it disappears forever, `stderr` are often redirected to here to filter error messages.
 
 Example:

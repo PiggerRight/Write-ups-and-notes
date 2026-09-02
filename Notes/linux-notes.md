@@ -929,6 +929,109 @@ df [options]
 
 - `-h` — human readable for disk sizes.
 
+### Cron
+
+**Cron** is a daemon (background service) that automatically executes scheduled tasks.
+
+Depending on the Linux distribution, the cron daemon can be started manually by:
+
+```bash
+cron
+```
+
+or:
+
+```bash
+crond
+```
+
+On most Linux systems, cron is already managed by the system's service manager, often `systemd`. If the daemon is already running, manually running another cron process may fail or behave differently depending on the system configuration.
+
+**Crontab** (cron table) is a configuration file containing cron jobs.
+
+**Cron job** defines:
+
+- When a task should run
+- Who the task runs as
+- What command should be executed
+
+Cron jobs are not only stored in users' personal crontabs. Their locations can vary depending on the Linux distribution.
+
+```text
+Cron
+│
+├── Personal crontabs
+│
+├── /etc/crontab
+│
+├── /etc/cron.d/
+│
+├── /etc/cron.hourly/
+├── /etc/cron.daily/
+├── /etc/cron.weekly/
+└── /etc/cron.monthly/
+```
+
+**Personal crontab format**
+
+A personal user's crontab does not include a `username` field. The task runs as the user who owns the crontab.
+
+```text
+┌──────── Minute (0–59)
+│ ┌────── Hour (0–23)
+│ │ ┌──── Day of month (1–31)
+│ │ │ ┌── Month (1–12)
+│ │ │ │ ┌ Day of week (0–7)
+│ │ │ │ │
+* * * * * command
+```
+
+**System-wide crontab format**
+
+System-wide crontab includes a `username` field. The `username` specifies which user executes the command.
+
+```text
+┌──────── Minute (0–59)
+│ ┌────── Hour (0–23)
+│ │ ┌──── Day of month (1–31)
+│ │ │ ┌── Month (1–12)
+│ │ │ │ ┌ Day of week (0–7)
+│ │ │ │ │
+* * * * * username command
+```
+
+Examples:
+
+```text
+30 2 * * * command
+```
+
+> Run every day at 2:30 AM as the owner of the personal crontab.
+
+```text
+*/5 * * * * command
+```
+
+> Run every 5 minutes as the owner of the personal crontab.
+
+```text
+30 2 * * * username command
+```
+
+> Run the command every day at 2:30 AM as `username`.
+
+Commands:
+
+```text
+crontab [options]
+```
+
+`[options]`
+
+- `-l` — view the current user's personal cron jobs.
+- `-e` — edit the current user's personal cron jobs.
+- `-r` — remove the current user's personal cron jobs.
+
 ### Localhost
 
 **Localhost** is a hostname that represents the local host (the machine or environment on which the program is running). It allows a computer to make a connection to itself, which is known as loopback.

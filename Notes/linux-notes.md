@@ -478,6 +478,27 @@ echo "hello world" | tr 'a-z' 'A-Z'
 HELLO WORLD
 ```
 
+### cut
+
+Extract specific parts of each line of text by character position, byte position, or fields separated by a delimiter.
+
+Syntax:
+
+```bash
+cut [options] [file]
+```
+
+`[options]`
+
+- `-c [n]-[m]` - extracts characters `n` through `m` from every line.
+- `-d '[delimiter]' -f [field(s)]` - extracts fields using a delimiter.
+
+`[field(s)]`
+
+- `[n]` - field `n`
+- `[n],[m]` - field `n` and `m`
+- `[n]-[m]` - field `n` to `m`
+
 
 
 ---
@@ -537,6 +558,26 @@ xxd [options] [files...]
 `[options]`
 
 - `-r` — recontruct original binary file of a hexdump.
+
+### md5sum
+
+**MD5** is a hash function that converts data of any size into a fixed-size 128-bit hash, usually displayed as 32 hexadecimal characters.
+
+**MD5** is considered cryptographically broken and should not be used for security-sensitive purposes. However, it can still be encountered in older systems, integrity checks,...
+
+In Linux, `md5sum` is a command used to calculate the MD5 hash of a file or standard input.
+
+Syntax:
+
+```bash
+md5sum [files...]
+```
+
+Output:
+
+```text
+[md5sum_text] [source]
+```
 
 
 

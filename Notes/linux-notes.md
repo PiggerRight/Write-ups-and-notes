@@ -2,7 +2,7 @@
 
 This is a small notes about almost Linux commands that I have learnt. Commands are categorized by their functions.
 
-## Navigation & File Management
+## Navigation & File/Directory Management
 
 ### cd
 
@@ -128,9 +128,52 @@ Syntax:
 pwd
 ```
 
+### chmod
+
+Change the permissions of files and directories.
+
+Syntax:
+```bash
+chmod [permission_number] [files...]
+```
+
+`[permission_number]` — a 3-digits integer and each digit defines the permission (`r`,`w`,`x`) of `user`, `group` and `others`.
+
+1. Permission value:
+  - `4` → `r`
+  - `2` → `w`
+  - `1` → `x`
+2. Permission number: (Eg: `600`)
+  - `6` = `4` + `2`        = `rw-`  → Owner
+  - `0` = No permissions   = `---`  → Group
+  - `0` = No permissions   = `---`  → Others
+
+3. File type symbol: The first symbol in the Permission symbol
+  - `-`  → regular file
+  - `d`  → directory
+  - `l`  → symbolic link
+
+5. Permission symbol:  (Eg: `600` → `-rw-------`)
+
+6. Meaning of Permission value:
+  - Files:
+    - `r`: Read the file's contents
+    - `w`: Modify the file's contents
+    - `x`: Execute the file as a program/script
+  - Directory:
+    - `r`: List the names of files inside
+    - `w`: Create, delete, or rename entries inside
+    - `x`: Traverse/search the directory and access known paths inside
+
+
+
+---
+
+## File/Directory Inspection & Text Processing
+
 ### ls
 
-List files and direcctories in `[path]` directory.
+List files and directories in `[path]` directory.
 
 Syntax:
 
@@ -162,71 +205,96 @@ ls [options] [path]
 - `-R` — explore the whole directory tree rooted from `[path]`.
 - `-t` — sort by last modified time.
 - `-S` — sort by size, largest first.
+- `-d` — treat the directory itself as the item to display, rather than listing what's inside it.
 - It is able to apply more than one option. (Eg: `-la`,...)
 
-### chmod
+### stat
 
-Change the permissions of files and directories.
+Display detailed information about a file or directory.
 
 Syntax:
-```bash
-chmod [permission_number] [files...]
-```
-
-`[permission_number]` — a 3-digits integer and each digit defines the permission (read, write and execute) of user, group and others.
-
-- Permission value:
-  - Read    = 4
-  - Write   = 2
-  - Execute = 1
-- Permission number: (Eg: 600)
-  - 6 = Read (4) + Write (2)  = rw-  → Owner:  read and write
-  - 0 = No permissions        = ---  → Group:  no permissions
-  - 0 = No permissions        = ---  → Others: no permissions
-  - Permission: -rw------- (we can see this in the `ls -l` permission collumn)
- 
-### Setuid
-
-**Setuid** (Set User ID) is a special permission bit for executable files in Linux. When a setuid executable is run, the program runs with the **effective user ID (EUID) of the file owner** instead of the user who executed it.
-
-For example:
-
-```text
--rwsr-xr-x 1 alice alice program
-```
-
-The `s` in the owner's execute permission indicates that the **setuid bit** is enabled.
-
-If `bob` executes the program:
 
 ```bash
-./program
+stat [options] [file]
 ```
 
-the process has:
-
+Output:
 ```text
-Real user ID (UID):      bob
-Effective user ID (EUID): alice
+  File: file.txt
+  Size: 123        Blocks: 8          IO Block: 4096   regular file
+Device: ...        Inode: 123456      Links: 1
+Access: (0644/-rw-r--r--)  Uid: (1000/user)   Gid: (1000/user)
+Access: 2026-08-29 10:00:00
+Modify: 2026-08-29 09:30:00
+Change: 2026-08-29 09:30:00
 ```
 
-Now, the program can perform actions with `alice`'s effective privileges.
+`[options]`
 
-Setuid itself does **not** define what actions the user can perform. It only causes the executable to run with the file owner's effective privileges. The **program's implementation** determines what can actually be done with those privileges.
+- `--format "[info]"` — get a specific information.
 
-For example, a setuid program can:
+`[info]`
 
-* Perform a fixed privileged action.
-* Accept specific arguments and perform corresponding actions.
-* Accept a command from the user and execute it with the owner's effective privileges.
+- `%U` — file owner
+- `%u` — numeric UID
+- `%A` — permission
+- `%a` — permission number
 
-Therefore, a setuid program that allows arbitrary command execution can be dangerous if the file owner has higher privileges.
+### file
 
+Determine the type of a file by examining its contents, not its filename or extension. This command mostly rely on magic number or the signatures of the file content to examine the file type.
 
+Syntax:
 
----
+```bash
+file [options] [files...]
+```
 
-## File Inspection & Text Processing
+### find
+
+Searches for files and directories based on conditions such as name, size, type, owner, or permissions.
+
+Syntax:
+
+```bash
+find [path] [options]
+```
+
+`[options]`
+
+- `-name "[name]"` — search by exact name:
+  - `[name]`: `*.txt` — search by file name extension.
+  - `[name]`: `.*` — search hidden files.
+  - `[name]`: `*abc*` - search file name containing "abc".
+- `-iname "[name]"` — search by name, only accept different in upper of lower case.
+- `-type [type]` — search by file type:
+  - `[type]`: `f` — regular files
+  - `[type]`: `d` — directories
+  - `[type]`: `l` — symbolic links
+- `-size [size]` — search by size:
+  - `[size]`: `100c` — exact 100 bytes
+  - `[size]`: `+10k` — more than 1KB
+  - `[size]`: `-1M` — less than 1MB
+  - `[size]`: `1G` — exact 1GB
+- `-user [user_name]` - search by user name.
+- `-group [group_name]` - search by group name.
+- `-perm [permission_number]` - search by permission. (`[permission_number]` contains 3 digits and each digit defines the permission - read, write, execute - of user, group and others)
+- `-exec [excecuted_command]` - execute `[excecuted_command]` on each result.
+
+`[excecuted_command]`
+
+```bash
+[command] \;
+```
+
+- `{}` — represent each result.
+- `\;` — end the command.
+
+Example:
+
+```bash
+find -size 1033c -exec cat {} \;
+```
 
 ### cat
 
@@ -284,12 +352,12 @@ sed [options] '[sed_command]' [files...]
 
 `[options] '[sed_command]'`
 
-- `-n 'np'` — print line `n` (`$` represent last line)
-- `-n 'n,mp'` — print lines `n-m`
-- `'nd'` — delete line `n` from the output
-- `'nd;md'` — delete line `n` and `m` from the output
-- `'s/old/new/'` — replace the first occurence of `old` with `new` on each line
-- `'s/old/new/g'` — replace all occurences of `old` with `new` on each line
+- `-n '[n]p'` — print line `[n]` (`$` represent last line)
+- `-n '[n],[m]p'` — print lines `[n]-[m]`
+- `'[n]d'` — delete line `[n]` from the output
+- `'[n]d;[m]d'` — delete line `[n]` and `[m]` from the output
+- `'s/[old]/[new]/'` — replace the first occurence of `[old]` with `[new]` on each line
+- `'s/[old]/[new]/g'` — replace all occurences of `[old]` with `[new]` on each line
 
 `[options]`
 
@@ -299,52 +367,6 @@ sed [options] '[sed_command]' [files...]
 
 - Line-oriented processing: `\n` is treated as a separator between lines and is often removed from the line being processed.
 - Byte-oriented processing: `\n` remains an actual byte in the input.
-
-### find
-
-Searches for files and directories based on conditions such as name, size, type, owner, or permissions.
-
-Syntax:
-
-```bash
-find [path] [options]
-```
-
-`[options]`
-
-- `-name "[name]"` — search by exact name:
-  - `[name]`: `*.txt` — search by file name extension.
-  - `[name]`: `.*` — search hidden files.
-  - `[name]`: `*abc*` - search file name containing "abc".
-- `-iname "[name]"` — search by name, only accept different in upper of lower case.
-- `-type [type]` — search by file type:
-  - `[type]`: `f` — regular files
-  - `[type]`: `d` — directories
-  - `[type]`: `l` — symbolic links
-- `-size [size]` — search by size:
-  - `[size]`: `100c` — exact 100 bytes
-  - `[size]`: `+10k` — more than 1KB
-  - `[size]`: `-1M` — less than 1MB
-  - `[size]`: `1G` — exact 1GB
-- `-user [user_name]` - search by user name.
-- `-group [group_name]` - search by group name.
-- `-perm [permission_number]` - search by permission. (`[permission_number]` contains 3 digits and each digit defines the permission - read, write, execute - of user, group and others)
-- `-exec [excecuted_command]` - execute `[excecuted_command]` on each result.
-
-`[excecuted_command]`
-
-```bash
-[command] \;
-```
-
-- `{}` — represent each result.
-- `\;` — end the command.
-
-Example:
-
-```bash
-find -size 1033c -exec cat {} \;
-```
 
 ### grep
 
@@ -490,30 +512,20 @@ cut [options] [file]
 
 `[options]`
 
-- `-c [n]-[m]` - extracts characters `n` through `m` from every line.
+- `-c [n]-[m]` - extracts characters `[n]` through `[m]` from every line.
 - `-d '[delimiter]' -f [field(s)]` - extracts fields using a delimiter.
 
 `[field(s)]`
 
-- `[n]` - field `n`
-- `[n],[m]` - field `n` and `m`
-- `[n]-[m]` - field `n` to `m`
+- `[n]` - field `[n]`
+- `[n],[m]` - field `[n]` and `[m]`
+- `[n]-[m]` - field `[n]` to `[m]`
 
 
 
 ---
 
 ## Binary Files & Compression
-
-### file
-
-Determine the type of a file by examining its contents, not its filename or extension. This command mostly rely on magic number or the signatures of the file content to examine the file type.
-
-Syntax:
-
-```bash
-file [options] [files...]
-```
 
 ### base64
 
@@ -741,6 +753,8 @@ echo "$current"
   - `0` → success
   - non-zero → failure
 
+**`true`/`false`**
+
   - `true` is a command with exit status is `0` → use for infinity loop or always executed `if` statement.
   - `false` is a command with exit status is non-zero.
 
@@ -822,6 +836,12 @@ hello() {
 hello
 ```
 
+6. `&&` and `||` in control flow
+
+- `[command_1] && [command_2]` — if `[command_1]` succeeds, `[command_2]` executes.
+- `[command_1] || [command_2]` — if `[command_1]` fails, `[command_2]` executes.
+- `[command_1] && [command_2] || [command_3]` — `[command_2]` executes if `[command_1]` succeeds; `[command_3]` executes if either `[command_1]` or `[command_2]` fails.
+
 ### Logical Expressions
 
 In Bash, conditional expressions are usually written inside `[[ ... ]]` and has exit status.
@@ -890,6 +910,53 @@ echo [options] [string...]
 ```bash
 read [variable]
 ```
+
+### shopt
+
+`shopt` is a Bash builtin command used to view and change Bash shell options. It isn't a standalone program like `ls` or `cat`.
+
+1. Display the current state of many Bash options
+
+```bash
+shopt
+```
+
+```text
+autocd          off
+cdspell         off
+checkjobs       off
+nullglob        off
+...
+```
+
+2. Enable/Disable an option
+
+```bash
+shopt -s nullglob
+```
+
+```bash
+shopt -u nullglob
+```
+
+- `-s` → set/enable
+- `-u` → unset/disable
+- `nullglob` → the option being enabled/disabled
+
+3. Check one option
+
+```bash
+shopt nullglob
+```
+
+4. Options
+
+- `nullglob` — causes unmatched wildcard patterns to expand to nothing instead of remaining as literal text.
+
+### File test operator
+
+- `[ -f file.txt ]` — check whether the path exists and is a regular file.
+- `[ -d mydir ]` — check whether the path exists and it is a directory.
 
 
 
@@ -970,6 +1037,43 @@ df [options]
 `[options]`
 
 - `-h` — human readable for disk sizes.
+
+### Setuid
+
+**Setuid** (Set User ID) is a special permission bit for executable files in Linux. When a setuid executable is run, the program runs with the **effective user ID (EUID) of the file owner** instead of the user who executed it.
+
+For example:
+
+```text
+-rwsr-xr-x 1 alice alice program
+```
+
+The `s` in the owner's execute permission indicates that the **setuid bit** is enabled.
+
+If `bob` executes the program:
+
+```bash
+./program
+```
+
+the process has:
+
+```text
+Real user ID (UID):      bob
+Effective user ID (EUID): alice
+```
+
+Now, the program can perform actions with `alice`'s effective privileges.
+
+Setuid itself does **not** define what actions the user can perform. It only causes the executable to run with the file owner's effective privileges. The **program's implementation** determines what can actually be done with those privileges.
+
+For example, a setuid program can:
+
+* Perform a fixed privileged action.
+* Accept specific arguments and perform corresponding actions.
+* Accept a command from the user and execute it with the owner's effective privileges.
+
+Therefore, a setuid program that allows arbitrary command execution can be dangerous if the file owner has higher privileges.
 
 ### Cron
 

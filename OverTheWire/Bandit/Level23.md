@@ -162,14 +162,14 @@ cut [options] [file]
 
 `[options]`
 
-- `-c [n]-[m]` - extracts characters `n` through `m` from every line.
-- `-d '[delimiter]' -f [field(s)]` - extracts fields using a delimiter.
+- `-c [n]-[m]` — extracts characters `n` through `m` from every line.
+- `-d '[delimiter]' -f [field(s)]` — extracts fields using a delimiter.
 
 `[field(s)]`
 
-- `[n]` - field `n`
-- `[n],[m]` - field `n` and `m`
-- `[n]-[m]` - field `n` to `m`
+- `[n]` — field `n`
+- `[n],[m]` — field `n` and `m`
+- `[n]-[m]` — field `n` to `m`
 
 ## References
 

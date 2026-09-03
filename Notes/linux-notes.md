@@ -711,13 +711,47 @@ Instead of typing commands line by line, we can save it into a file and execute 
 echo "Hello World"
 ```
 
-**Run script**
+**Execute script**
 
-  - `[file]` — have `.sh` extension.
+1. `bash`
+
+Syntax:
 
 ```bash
-bash [file]
+bash [script]
 ```
+
+`[script]` — have `.sh` extension.
+
+2. `timeout`
+
+Execute a command or script and automatically terminates it if it runs longer than a specified time limit.
+
+Syntax:
+
+```bash
+timeout [options] [duration] [command/script]
+```
+
+`[duration]`
+
+- `s` — seconds (default)
+- `m` — minutes
+- `h` — hours
+- `d` — days
+- Example: `10` or `10s` (10 seconds), `5m` (5 minutes)
+
+`[options]`
+
+- `-k [duration]` — sends `SIGKILL` after extra delay if `SIGTERM` fails
+- `-s [signal]` — specifies initial signal
+
+`[signal]`
+
+- `SIGTERM` or `15` — (default signal) requests a graceful termination
+- `SIGINT` or `2` — simulates pressing `Ctrl`+`C` in the terminal
+- `SIGHUP` or `1` — simulates a lost terminal session or disconnected modem
+- `SIGKILL` or `9` — immediately terminates the process at the OS level
 
 **Comments**
 

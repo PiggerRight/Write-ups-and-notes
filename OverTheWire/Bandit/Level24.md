@@ -16,7 +16,7 @@ In this level, the challenge again hints that we should look in `/etc/cron.d/` t
 
 ### Step 1: Examine `/etc/cron.d/`
 
-`/etc/cron.d/` is commonly used to store system-wide cron job definitions. 
+`/etc/cron.d/` is commonly used to store system-wide cron job definitions.
 
 First, I checked its contents:
 
@@ -43,10 +43,11 @@ cat /etc/cron.d/cronjob_bandit24
 Output:
 
 ```text
+@reboot bandit24 /usr/bin/cronjob_bandit24.sh &> /dev/null
 * * * * * bandit24 /usr/bin/cronjob_bandit24.sh &> /dev/null
 ```
 
-This file defines a system-wide cron job that executes `/usr/bin/cronjob_bandit24.sh` as `bandit24` every minute. The `&> /dev/null` redirects both `stdout` and `stderr` to `/dev/null`, meaning that the script's normal output and error messages are discarded.
+This file defines a system-wide cron job that executes `/usr/bin/cronjob_bandit24.sh` as `bandit24`. This cron job executes the script after reboot and every minute. The `&> /dev/null` redirects both `stdout` and `stderr` to `/dev/null`, meaning that the script's normal output and error messages are discarded.
 
 Therefore, I decided to examine the script directly.
 
@@ -55,7 +56,7 @@ Therefore, I decided to examine the script directly.
 I examined the script using `cat`:
 
 ```bash
-cat /usr/bin/cronjob_bandit23.sh
+cat /usr/bin/cronjob_bandit24.sh
 ```
 
 Output:
@@ -83,61 +84,83 @@ do
 done
 ```
 
-The first command assigns the output of `whoami` to the variable `myname`:
+The first command uses `shopt` to enable `nullglob` option of the Bash shell.
+
+The next command assigns the output of `whoami` to the variable `myname`:
 
 ```bash
 myname=$(whoami)
 ```
 
-Since the cron job executes the script as `bandit23`, the value of `myname` is `bandit23`.
+Since the cron job executes the script as `bandit24`, the value of `myname` is `bandit24`.
 
-Next, the script creates the variable `mytarget` using a pipeline:
-
-```bash
-mytarget=$(echo I am user $myname | md5sum | cut -d ' ' -f 1)
-```
-
-The `echo` command produces: `I am user bandit23`
-
-This output is passed to `md5sum`, which calculates its MD5 hash. The output of `md5sum` has the format: `[md5sum_text] -`
-
-The cut command extracts the first space-separated field, which is `[md5sum_text]`.
-
-Therefore, I replaced `$myname` with `bandit23` and ran the same pipeline:
+Next, the script changes the working directory:
 
 ```bash
-echo I am user bandit23 | md5sum | cut -d ' ' -f 1
+cd /var/spool/"$myname"/foo || exit
 ```
 
-Output:
+The script will be terminated if `cd` fails. Because the value of `myname` is `bandit24`, the working directory now is `/var/spool/bandit24/foo`.
 
-```text
-8ca319486bfbbc3663ea0fbe81326349
-```
+Then, the script prints the purpose of the next loop statement, which is executing and deleting all scripts in `/var/spool/$myname/foo`.
 
-Now, I know that `mytarget="8ca319486bfbbc3663ea0fbe81326349"`.
-
-Then, the script print something out. The final command in the script is: 
+The loop statement iterates through all files and directories (hidden ones are included) in the working directory. The `if` statement sercurely checks to make sure that no `i` matches `.` or `..`.
 
 ```bash
-cat /etc/bandit_pass/$myname > /tmp/$mytarget
+for i in * .*;
+do
+    if [ "$i" != "." ] && [ "$i" != ".." ];
+    then
+        echo "Handling $i"
+        owner="$(stat --format "%U" "./$i")"
+        if [ "${owner}" = "bandit23" ] && [ -f "$i" ]; then
+            timeout -s 9 60 "./$i"
+        fi
+        rm -rf "./$i"
+    fi
+done
 ```
 
-After substituting the variables, it becomes:
+In short, with each `i`, the script:
+
+- inspects the owner of `i` using `stat --format "%U" "./$i"` and assigns the owner username to `owner`
+- uses `timeout -s 9 60 "./$i"` to execute `i` that is a regular file owned by `bandit23`
+- forcely and recursively removes `i`
+
+I realized that this script is executed with `bandit24`s' privilege and able to execute `bandit23`'s script located in `/var/spool/bandit24/foo`. Therefore, I though I can try to inject to `/var/spool/bandit24/foo` a script that secretly read `bandit24`'s password.
+
+To make sure this decision is possible, I checked the permission of `/var/spool/bandit24/foo`:
 
 ```bash
-cat /etc/bandit_pass/bandit23 > /tmp/8ca319486bfbbc3663ea0fbe81326349
+stat /var/spool/bandit24/foo
 ```
 
-Since the script runs as `bandit23`, it can read `/etc/bandit_pass/bandit23` and write its contents to the file in `/tmp/`.
+Its permission is `drwxrwx-wx`, which is a directory allowing others to create and execute scripts.
 
-Therefore, I tried to read the generated file:
+### Step 4: Inject script to `/var/spool/bandit24/foo`
+
+I created a temporary directory `/tmp/Piggeright`. Remember to allow others can modify the directory because the script will run with privilege of `bandit24`.
 
 ```bash
-cat /tmp/8ca319486bfbbc3663ea0fbe81326349
+mkdir /tmp/Piggeright
+chmod 777 /tmp/Piggeright
 ```
 
-Finally, I retrieved the password for the next level.
+I decided to use this directory to store the stolen password.
+
+Then I write the script:
+
+```bash
+#!/bin/bash
+cat "/etc/bandit_pass/bandit24" > "/tmp/Piggeright/password.txt"
+```
+
+
+
+Then, I waited for 1 minute to let cron do its job. 
+
+# Remember to check preset perm when created of file and dir and how to check the setting rather than mannually trying
+# Vim in linux
 
 ## Key Takeaways
 
@@ -232,7 +255,35 @@ Change: 2026-08-29 09:30:00
 - `[ -f file.txt ]` — check whether the path exists and is a regular file.
 - `[ -d mydir ]` — check whether the path exists and it is a directory.
 
+### `timeout`
 
+Execute a command or script and automatically terminates it if it runs longer than a specified time limit.
+
+Syntax:
+
+```bash
+timeout [options] [duration] [command/script]
+```
+
+`[duration]`
+
+- `s` — seconds (default)
+- `m` — minutes
+- `h` — hours
+- `d` — days
+- Example: `10` or `10s` (10 seconds), `5m` (5 minutes)
+
+`[options]`
+
+- `-k [duration]` — sends `SIGKILL` after extra delay if `SIGTERM` fails
+- `-s [signal]` — specifies initial signal
+
+`[signal]`
+
+- `SIGTERM` or `15` — (default signal) requests a graceful termination
+- `SIGINT` or `2` — simulates pressing `Ctrl`+`C` in the terminal
+- `SIGHUP` or `1` — simulates a lost terminal session or disconnected modem
+- `SIGKILL` or `9` — immediately terminates the process at the OS level
 
 ## References
 

@@ -104,7 +104,7 @@ Output:
 8ca319486bfbbc3663ea0fbe81326349
 ```
 
-Now, I know that `mytarget="8ca319486bfbbc3663ea0fbe81326349"`.
+Now, I know that `mytarget='8ca319486bfbbc3663ea0fbe81326349'`.
 
 Then, the script print something out. The final command in the script is: 
 

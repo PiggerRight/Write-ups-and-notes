@@ -139,32 +139,6 @@ chmod [permission_number] [files...]
 
 `[permission_number]` — a 3-digits integer and each digit defines the permission (`r`,`w`,`x`) of `user`, `group` and `others`.
 
-1. Permission value:
-  - `4` → `r`
-  - `2` → `w`
-  - `1` → `x`
-2. Permission number: (Eg: `600`)
-  - `6` = `4` + `2`        = `rw-`  → Owner
-  - `0` = No permissions   = `---`  → Group
-  - `0` = No permissions   = `---`  → Others
-
-3. File type symbol: The first symbol in the Permission symbol
-  - `-`  → regular file
-  - `d`  → directory
-  - `l`  → symbolic link
-
-5. Permission symbol:  (Eg: `600` → `-rw-------`)
-
-6. Meaning of Permission value:
-  - Files:
-    - `r`: Read the file's contents
-    - `w`: Modify the file's contents
-    - `x`: Execute the file as a program/script
-  - Directory:
-    - `r`: List the names of files inside
-    - `w`: Create, delete, or rename entries inside
-    - `x`: Traverse/search the directory and access known paths inside
-
 
 
 ---
@@ -698,6 +672,33 @@ stderr → errors.txt
 
 Instead of typing commands line by line, we can save it into a file and execute that file. This is useful when we have to solve repetitive tasks and we can re-use that script many times.
 
+### vim
+
+In Linux, `vim` (Vi Improved) is a powerful terminal-based text editor. You can use it to create and edit files directly in the command line.
+
+Syntax:
+
+```bash
+vim [file]
+```
+
+- If `[file]` exists → `vim` opens it.
+- If it doesn't exist → `vim` creates it.
+
+**Modes**
+
+1. Normal mode: When you open Vim, you start in Normal mode.
+  - `i` + `Enter` → enter Insert mode
+  - `dd` + `Enter` → delete a line
+  - `yy` + `Enter` → copy a line
+  - `:q` + `Enter` → quit
+  - `:w` + `Enter` → write (save)
+  - `:wq` + `Enter` → write and quit
+  - `:q!` + `Enter` → quit without writing
+
+2. Insert mode
+  - `Esc` → return to Normal mode
+
 ### Scripting Basics
 
 **Script structure**
@@ -1071,6 +1072,55 @@ df [options]
 `[options]`
 
 - `-h` — human readable for disk sizes.
+
+### Permission of file and directory
+
+1. Permission value:
+  - `4` → `r`
+  - `2` → `w`
+  - `1` → `x`
+2. Permission number: (Eg: `600`)
+  - `6` = `4` + `2`        = `rw-`  → Owner
+  - `0` = No permissions   = `---`  → Group
+  - `0` = No permissions   = `---`  → Others
+
+3. File type symbol: The first symbol in the Permission symbol
+  - `-`  → regular file
+  - `d`  → directory
+  - `l`  → symbolic link
+
+5. Permission symbol:  (Eg: `600` → `-rw-------`)
+
+6. Meaning of Permission value:
+  - Files:
+    - `r`: Read the file's contents
+    - `w`: Modify the file's contents
+    - `x`: Execute the file as a program/script
+  - Directory:
+    - `r`: List the names of files inside
+    - `w`: Create, delete, or rename entries inside
+    - `x`: Traverse/search the directory and access known paths inside
+
+### uname
+
+Determine the default permissions of newly created files and directories.
+
+Syntax:
+
+```bash
+uname
+```
+
+Example output:
+
+```text
+0022
+```
+
+This output means the permission after being created is:
+
+- File:      `666` → `644` → -rw-r--r-- (644)
+- Directory: `777` → `755` → drwxr-xr-x (755)
 
 ### Setuid
 

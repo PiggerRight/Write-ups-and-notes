@@ -628,6 +628,28 @@ Here, `/usr/bin/cat` is an absolute path to the program.
 
 Therefore, when executing a program, we can use a relative path, an absolute path, or no path at all if the program can be found through `$PATH`.
 
+### File descriptor (FD)
+
+A **file descriptor** is simply a number that a process uses to refer to an open input/output resource.
+
+When Bash opens something:
+
+```bash
+cat file.txt
+```
+
+the operating system assigns the process a file descriptor for the opened resource.
+
+```text
+Bash
+├── 0 → keyboard/input
+├── 1 → terminal/output
+├── 2 → terminal/error
+└── 3 → file.txt
+```
+
+**Notes**: `0`,`1`, and `2` are standard FDs. Shell redirection can modify where these standard FDs point. The others are available for additional I/O resources and can be created, modified, or closed using `exec`.
+
 ### Streams
 
 Every Linux program has three standard streams:
@@ -664,6 +686,33 @@ stderr → errors.txt
 
 ```bash
 [command_1] | [command_2]
+```
+
+### exec
+
+`exec` is a Bash builtin with two main uses:
+
+1. Replace the current Bash process with a command
+
+```bash
+exec ls
+```
+
+→ Bash becomes `ls`; when `ls` exits, that Bash shell does not return.
+
+2. Modify file descriptors of the current Bash shell
+
+```bash
+exec [n]<>[file]
+```
+
+→ Open `[file]` for both reading and writing and associate it with file descriptor `[n]`.
+
+Then:
+
+```bash
+printf "hello\n" >&[n]  # write to FD 3
+read response <&[n]     # read from FD 3
 ```
 
 ### Scripting
@@ -945,6 +994,17 @@ echo [options] [string...]
 ```bash
 read [variable]
 ```
+
+3. `printf`: Prints text or variable values to `stdout`.
+
+```bash
+printf "[string...]"
+```
+
+  - `[string...]` 
+    - `\n` — newline
+    - `"%s" "$name"` — string variable
+    - `"%d" "$age"` — integer variable
 
 ### shopt
 
@@ -1404,6 +1464,31 @@ nc [options] [IP_address/domain] [port]
 - `-u` — create UDP connection
 
 **Notes**: Unlike `ssh` or `openssl`, which requires the connected port to support many protocols, `nc` just requires connected port to establish a connection, and exchange data without any required protocols. Therefore, `nc` is useful when investigating an unknown service.
+
+### /dev/tcp/[IP_address/domain]/[port]
+
+`/dev/tcp/[IP_address/domain]/[port]` is a Bash-specific feature that allows Bash to establish a TCP connection to the specified host and port.
+
+It is commonly used with `exec`:
+
+```bash
+exec [n]<>/dev/tcp/[IP_address/domain]/[port]
+```
+
+This opens the TCP connection for both reading and writing and associates it with file descriptor `[n]`. We can then send and receive data through FD `[n]`.
+
+This TCP connection is similar to what `nc` establishes: a plain TCP connection without an application-layer protocol being added automatically.
+
+Using `/dev/tcp` with `exec` can be more convenient than `nc` in Bash scripts when you need to repeatedly send and receive data while continuing to execute shell commands.
+
+However, we need to handle connection closure/EOF ourself.
+
+```bash
+if ! read response <&3; then
+    echo "Connection closed"
+    break
+fi
+```
 
 ### openssl
 

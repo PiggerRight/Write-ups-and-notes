@@ -784,7 +784,7 @@ vim [file]
   - `:q!` + `Enter` → quit without writing
   - Vim's Normal mode can be used to run shell commands, but you enter them through Vim's Ex command line:
     - `:![command]` → Vim asks the OS to run `[command]` through Vim's configured shell, with the same privileges as Vim.
-    - `:shell` → starts an interactive shell using Vim's configured shell, with the same privileges as Vim. Vim's shell option is initially set based on `$SHELL` and can be changed internally with `:set shell=[path]`.
+    - `:shell` → starts an interactive shell using Vim's configured shell, with the same privileges as Vim. Vim's shell option is initially set based on `$SHELL` and can be changed internally with `:set shell=[path]`. To check current `shell` option, use `:set shell=?`.
 
 2. Insert mode
   - `Esc` → return to Normal mode

@@ -495,6 +495,44 @@ cut [options] [file]
 - `[n],[m]` - field `[n]` and `[m]`
 - `[n]-[m]` - field `[n]` to `[m]`
 
+### more
+
+Is a pager, displays long text one screen at a time.
+
+```bash
+more [file]
+```
+
+**How it works**:
+
+If the text fits on the screen:
+
+```text
+file.txt → more → prints everything → exits
+```
+
+But if the text is longer than the terminal:
+
+```text
+                    ┌─────────────────┐
+                    │ line 1          │
+                    │ line 2          │
+ file.txt → more →  │ line 3          │ → waits for command
+                    │ ...             │
+                    │ --More--        │
+                    └─────────────────┘
+```
+
+Now `more` becomes interactive.
+
+**Commands**:
+
+- `Space` — next screen
+- `Enter` — next line
+- `q` — quit
+- `v` — open the current file in an editor (Vim/when supported)
+- `!command` — execute a shell command (when supported)
+
 
 
 ---
@@ -744,6 +782,9 @@ vim [file]
   - `:w` + `Enter` → write (save)
   - `:wq` + `Enter` → write and quit
   - `:q!` + `Enter` → quit without writing
+  - Vim's Normal mode can be used to run shell commands, but you enter them through Vim's Ex command line:
+    - `:![command]` → Vim asks the OS to run `[command]` through a shell with the same privileges as Vim 
+    - `:shell` → start an interactive shell with the same privilege as Vim 
 
 2. Insert mode
   - `Esc` → return to Normal mode
@@ -1066,7 +1107,7 @@ shopt nullglob
   - `/root` — Home directory of the root user. Normal users usually cannot access it. This is not the same as `/`.
   - `/tmp` — Temporary files. Programs often store temporary data here. Many Linux systems automatically clean `/tmp` up.
   - `/etc` — System configuration. Contains configuration files. Cybersecurity people spend a lot of time here.
-  - `/bin` — Essential user commands.
+  - `/bin` — Essential system executables.
   - `/usr` — User programs and libraries. Contains most installed software.
   - `/var` — Variable data. Things that change while the system runs. System logs are stored in `/var/log`.
   - `/dev` — Device files. Linux represents hardware as files.
@@ -1080,9 +1121,13 @@ shopt nullglob
 
 ### Must-know Files
 
-  - `.profile` — startup file commonly read when a **login shell** starts, set up the environment for that user's login shell.
-  - `.bashrc` — startup file commonly read when an **interactive Bash shell** starts, set up the interactive Bash environment.
-  - `.bash_logout` — a file commonly executed when an **interactive login Bash shell** exits.
+  - `/etc/passwd` — stores user account information, including which login shell is assigned to each user.
+  - `/bin/bash` — the Bash executable. It is not a configuration file; it is the program that implements the Bash shell.
+  - `/etc/profile` — system-wide configuration file commonly read by **login shells**.
+  - `/etc/bash.bashrc` — system-wide configuration file commonly read by **interactive Bash shells** on Debian/Ubuntu-based systems.
+  - `~/.profile` — user-specific startup file commonly read by a **login shell**. Often used to set up the user's environment.
+  - `~/.bashrc` — user-specific startup file read by an **interactive Bash shell**. Commonly used to configure the interactive Bash environment.
+  - `~/.bash_logout` — user-specific file executed when an **interactive login Bash shell** exits.
 
 ### whoami
 

@@ -531,7 +531,7 @@ Now `more` becomes interactive.
 - `Enter` — next line
 - `q` — quit
 - `v` — open the current file in an editor (Vim/when supported)
-- `!command` — execute a shell command (when supported)
+- `!command` — execute a command using executables from `$SHELL` (when supported)
 
 
 
@@ -783,8 +783,8 @@ vim [file]
   - `:wq` + `Enter` → write and quit
   - `:q!` + `Enter` → quit without writing
   - Vim's Normal mode can be used to run shell commands, but you enter them through Vim's Ex command line:
-    - `:![command]` → Vim asks the OS to run `[command]` through a shell with the same privileges as Vim 
-    - `:shell` → start an interactive shell with the same privilege as Vim 
+    - `:![command]` → Vim asks the OS to run `[command]` through Vim's configured shell, with the same privileges as Vim.
+    - `:shell` → starts an interactive shell using Vim's configured shell, with the same privileges as Vim. Vim's shell option is initially set based on `$SHELL` and can be changed internally with `:set shell=[path]`.
 
 2. Insert mode
   - `Esc` → return to Normal mode
@@ -1121,7 +1121,7 @@ shopt nullglob
 
 ### Must-know Files
 
-  - `/etc/passwd` — stores user account information, including which login shell is assigned to each user.
+  - `/etc/passwd` — stores user account information, including which login shell executable is assigned to each user.
   - `/bin/bash` — the Bash executable. It is not a configuration file; it is the program that implements the Bash shell.
   - `/etc/profile` — system-wide configuration file commonly read by **login shells**.
   - `/etc/bash.bashrc` — system-wide configuration file commonly read by **interactive Bash shells** on Debian/Ubuntu-based systems.

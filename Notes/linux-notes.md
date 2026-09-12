@@ -868,6 +868,7 @@ echo "$current"
 
 **Script Arguments**
 
+  - `$0` — contains the command/name/path that was used to invoke the current shell or script.
   - `$1` — first argument
   - `$2` — second argument
   - `$@` — all arguments

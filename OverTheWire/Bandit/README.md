@@ -1,23 +1,22 @@
 # OverTheWire: Bandit Write-ups
 
-This repository contains my write-ups and notes while solving the **OverTheWire Bandit** wargame.
+## About
+
+This directory contains my write-ups and notes while solving the **OverTheWire Bandit** wargame.
 
 Bandit is a beginner-friendly Linux wargame created by **OverTheWire**. It introduces fundamental Linux command-line skills that are widely used in system administration, scripting, and cybersecurity.
 
-## About
+This is the starting point of my Linux journey, helping me build a solid foundation in Linux command-line usage for CTFs and cybersecurity. Each write-up documents my thought process, the commands I used, and the Linux concepts I learned throughout the challenges.
 
-This repository is the starting point of my Linux journey, helping me build a solid foundation in Linux command-line usage for CTFs and cybersecurity. Each write-up documents my thought process, the commands I used, and the Linux concepts I learned throughout the challenges.
-
-## Repository Structure
+## Directory Structure
 
 ```
-OverTheWire/
-└── Bandit/
-    ├── README.md
-    ├── Leve00.md
-    ├── Leve01.md
-    ├── Leve02.md
-    ├── ...
+Bandit/
+├── Leve00.md
+├── Leve01.md
+├── Leve02.md
+├── ...
+└── README.md
 ```
 
 Each write-up generally includes:
@@ -32,9 +31,7 @@ Each write-up generally includes:
 
 All challenge content belongs to **OverTheWire**.
 
-Bandit can be found at:
-
-https://overthewire.org/wargames/bandit/
+Bandit can be found at: https://overthewire.org/wargames/bandit/
 
 Please support the original project if you're interested in learning Linux and cybersecurity fundamentals.
 

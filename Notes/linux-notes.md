@@ -789,6 +789,8 @@ vim [file]
 2. Insert mode
   - `Esc` → return to Normal mode
 
+There is also a editor for binary file named `bvi`.
+
 ### Scripting Basics
 
 **Script structure**

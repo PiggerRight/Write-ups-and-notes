@@ -1,6 +1,6 @@
 # Linux Commands Notes
 
-This is a small notes about almost Linux commands that I have learnt. Commands are categorized by their functions.
+This is a small note about almost Linux commands that I have learnt. Commands are categorized by their functions.
 
 ## Navigation & File/Directory Management
 

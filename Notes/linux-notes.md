@@ -1620,4 +1620,39 @@ scp [options] [source_path] [destination_path]
 
 **Notes**: `scp` uses SSH connection as its underlying transport for securely transferring files, so we need to provide `scp` with connection information similar to what we provide when using `ssh`.
 
+### wget
+
+Download files from HTTP/HTTPS/FTP servers.
+
+Syntax:
+
+```bash
+wget [options] [host_name]
+```
+
+`[options]`
+
+- `-O [file_name]` — specify the output filename
+- `-q` — quiet mode
+- `-r` — recursively download files
+
+### curl
+
+A tool for transferring data between a client and a server. It is commonly used with HTTP/HTTPS requests and APIs.
+
+Syntax:
+
+```bash
+curl [options] [host_name]
+```
+
+`[options]`
+
+- `-o [file_name]` — specify the output filename
+- `-O` — save using the filename from the URL
+- `-L` — follow redirects
+- `-X [METHOD]` — specify the HTTP method
+- `-H` — add an HTTP header
+- `-d` — send data
+
 

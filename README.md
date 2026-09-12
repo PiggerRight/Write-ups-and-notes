@@ -1,10 +1,10 @@
 # Write-ups-and-notes
 
+## About
+
 Welcome to my CTF write-up repository!
 
 This repository contains my write-ups, notes, and lessons learned while solving Capture The Flag (CTF) challenges.
-
-## About
 
 I created this repository to:
 
@@ -14,20 +14,22 @@ I created this repository to:
 
 ## Platforms
 
-| Platform | Status |
-|----------|--------|
-| OverTheWire - Bandit | 🟢 In Progress |
+|       Platform       |       Status       |
+|----------------------|--------------------|
+| OverTheWire - Bandit | 🔄 In Progress 🔄 |
 
 ## Repository Structure
 
 ```
 Write-ups-and-notes/
-│
 ├── OverTheWire/
 │   └── Bandit/
 │       ├── Level00.md
 │       ├── Level01.md
-│       └── ...
+│       ├── ...
+│       └── README.md
+├── ...
+└── README.md
 ```
 
 ## Disclaimer

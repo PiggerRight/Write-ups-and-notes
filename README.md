@@ -14,9 +14,10 @@ I created this repository to:
 
 ## Platforms
 
-|       Platform       |       Status       |
-|----------------------|--------------------|
-| OverTheWire - Bandit | 🔄 In Progress 🔄 |
+|       Platform       | Progress |       Status       |
+|----------------------|----------|--------------------|
+| OverTheWire - Bandit |   34/34  | ✅  Completed  ✅ |
+|         ...          |   0 / —  | 🔄 In Progress 🔄 |
 
 ## Repository Structure
 

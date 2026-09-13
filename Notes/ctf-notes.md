@@ -9,6 +9,14 @@ This is a small note about my experience when solving CTF challenges.
 - `index.html`, `style.css`, `script.js`
 - `robots.txt` — gives instructions to web crawlers/bots, can reveal a path that the website doesn't link to directly.
 
+### Cookies
+
+**Cookies** are commonly used by websites to maintain state, including user authentication. They are stored on the client side (browser) and sent to the server with requests.
+
+**Session cookies** can be security-critical. A session cookie is used by a web server to identify or maintain a user's session.
+
+If a sensitive value such as a session ID/key, username, role, or authentication state is stored in the cookie without proper protection, it may be exploitable. Therefore, cookies can be valuable targets when they contain sensitive information or are improperly protected.
+
 ## Forensics
 
 ### SVG

@@ -17,6 +17,32 @@ This is a small note about my experience when solving CTF challenges.
 
 If a sensitive value such as a session ID/key, username, role, or authentication state is stored in the cookie without proper protection, it may be exploitable. Therefore, cookies can be valuable targets when they contain sensitive information or are improperly protected.
 
+### Authentication
+
+- Never trust the client to enforce authentication. Authentication and authorization checks must be enforced server-side.
+- Security-sensitive fields must be properly validated on the server, including explicitly rejecting missing or invalid authentication data.
+
+### Burp Suite
+
+**Burp Suite** is a platform for web application security testing. It acts as an intermediary between the client (browser) and the web server, allowing us to inspect and modify HTTP requests and responses. This makes it useful for discovering flaws in server-side request handling, authentication, and input validation.
+
+1. Proxy
+
+**Proxy** intercepts HTTP requests and responses between the browser and the server. It can be used to:
+
+- Inspect requests and responses.
+- View cookies, headers, parameters, and request bodies.
+- Modify requests before forwarding them to the server.
+
+2. Repeater
+
+**Repeater** allows us to manually modify and resend a captured request multiple times. It is useful for:
+
+- Testing different parameter values.
+- Modifying headers or cookies.
+- Testing how the server handles malformed or unexpected requests.
+- Comparing different server responses.
+
 ## Forensics
 
 ### SVG

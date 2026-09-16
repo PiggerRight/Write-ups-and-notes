@@ -1246,6 +1246,8 @@ sudo [options] [command]
 - `-i` — start an interactive shell
 - `-l` — list what your current user is allowed to run through `sudo`
 
+Users should follow the principle of least privilege and should not be given unnecessary or unrestricted sudo permissions.
+
 ### Setuid
 
 **Setuid** (Set User ID) is a special permission bit for executable files in Linux. When a setuid executable is run, the program runs with the **effective user ID (EUID) of the file owner** instead of the user who executed it.

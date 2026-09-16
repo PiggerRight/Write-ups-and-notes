@@ -4,10 +4,23 @@ This is a small note about my experience when solving CTF challenges.
 
 ## Web exploitation
 
-### Standard/conventional files
+### Front-end
 
-- `index.html`, `style.css`, `script.js`
-- `robots.txt` — gives instructions to web crawlers/bots, can reveal a path that the website doesn't link to directly.
+- Standard/conventional files
+    - `index.html`, `style.css`, `script.js`
+    - `robots.txt` — gives instructions to web crawlers/bots, can reveal a path that the website doesn't link to directly.
+
+### Back-end
+
+- PHP is a server-side scripting language that can execute code on a web server.
+
+- Users should follow the principle of least privilege and should not be given unnecessary or unrestricted permissions.
+
+- Handel API calling properly.
+
+### File upload
+
+File uploads should strictly validate file types and file contents, and uploaded files should not be executable as server-side code.
 
 ### Cookies
 

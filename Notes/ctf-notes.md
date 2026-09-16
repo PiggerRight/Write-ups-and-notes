@@ -20,6 +20,8 @@ This is a small note about my experience when solving CTF challenges.
 
 - Manage API calling properly.
 
+- A blocklist cannot stop code injection, because every language offers several ways to express the same thing: concatenation, `chr()`, and `__import__()` rebuild any banned token at runtime without it ever appearing in the input. The safe answer is to keep user input away from `eval` and `exec` entirely. Where dynamic evaluation is genuinely needed, allowlist the exact operations the feature requires.
+
 ### File upload
 
 **File uploads** should strictly validate file types and file contents, and uploaded files should not be executable as server-side code.

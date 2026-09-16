@@ -1230,6 +1230,22 @@ This output means the permission after being created is:
 - File:      `666` → `644` → -rw-r--r-- (644)
 - Directory: `777` → `755` → drwxr-xr-x (755)
 
+### sudo
+
+Allows a user to execute a command with the privileges of another user, the default target user is `root`.
+
+Syntax:
+
+```bash
+sudo [options] [command]
+```
+
+`[options]`
+
+- `-u [username]` — run command as a specific user
+- `-i` — start an interactive shell
+- `-l` — list what your current user is allowed to run through `sudo`
+
 ### Setuid
 
 **Setuid** (Set User ID) is a special permission bit for executable files in Linux. When a setuid executable is run, the program runs with the **effective user ID (EUID) of the file owner** instead of the user who executed it.

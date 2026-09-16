@@ -16,7 +16,7 @@ This is a small note about my experience when solving CTF challenges.
 
 - Users should follow the principle of least privilege and should not be given unnecessary or unrestricted permissions.
 
-- Handel API calling properly.
+- Manage API calling properly.
 
 ### File upload
 

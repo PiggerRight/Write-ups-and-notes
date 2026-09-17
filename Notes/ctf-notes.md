@@ -9,12 +9,15 @@ This is a small note about my experience when solving CTF challenges.
 - Standard/conventional files
     - `index.html`, `style.css`, `script.js`
     - `robots.txt` — gives instructions to web crawlers/bots, can reveal a path that the website doesn't link to directly.
+    - Back-up files
  
 - **Frontend** validation can be useful for UX, but it cannot be the security boundary. The **Backend** must enforce the security.
 
 ### Back-end
 
 - PHP is a server-side scripting language that can execute code on a web server.
+    - PHP type juggling of dynamically typed language → enforce the expected type before a security-sensitive comparison.
+    - Return of `sha1()`, `md5()`,...
 
 - Users should follow the principle of least privilege and should not be given unnecessary or unrestricted permissions.
 

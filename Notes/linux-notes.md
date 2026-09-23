@@ -582,6 +582,7 @@ xxd [options] [files...]
 `[options]`
 
 - `-r` — recontruct original binary file of a hexdump.
+- `-p` — handle plain hexadecimal.
 
 ### md5sum
 

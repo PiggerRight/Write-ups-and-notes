@@ -69,6 +69,14 @@ If a sensitive value such as a session ID/key, username, role, or authentication
 - Testing how the server handles malformed or unexpected requests.
 - Comparing different server responses.
 
+3. Intruder
+
+**Intruder** allows us to automatically send a large number of requests with different payloads. It is useful for:
+
+- Testing different parameter values automatically.
+- Testing input fields with a list of payloads (Bruteforce).
+- Finding valid or interesting values by comparing server responses.
+
 ## Forensics
 
 ### SVG

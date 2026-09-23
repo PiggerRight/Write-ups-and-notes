@@ -83,6 +83,15 @@ If a sensitive value such as a session ID/key, username, role, or authentication
 - Testing input fields with a list of payloads (Bruteforce).
 - Finding valid or interesting values by comparing server responses.
 
+## Reverse Engineering
+
+### Assembly
+
+- Standard/conventional files
+    - `index.html`, `style.css`, `script.js`
+    - `robots.txt` — gives instructions to web crawlers/bots, can reveal a path that the website doesn't link to directly.
+    - Back-up files
+
 ## Forensics
 
 ### SVG

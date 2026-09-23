@@ -31,9 +31,15 @@ This is a small note about my experience when solving CTF challenges.
 
 ### SSTI - Server Side Template Injection
 
-**SSTI** occurs when user-controlled input is interpreted as server-side template code. In Jinja, this can allow an attacker to traverse accessible Python objects and potentially reach dangerous functionality such as OS interaction.
+**SSTI** occurs when user-controlled input is interpreted as server-side template code. In Jinja, this can allow an attacker to traverse accessible Python objects and potentially reach dangerous functionality such as OS interaction (RCE).
 
 The primary defense is to keep user input as data rather than dynamically rendering it as a template, combined with appropriate sandboxing and least-privilege controls.
+
+### NoSQL Injection
+
+**NoSQL Injection** is an injection attack against a NoSQL database, similar in concept to SQL injection but targeting databases such as MongoDB, Redis, CouchDB, etc. It occurs when user input can modify the structure or operators of a NoSQL database query.
+
+Carefully validate and sanitize user input before using it to construct queries. Do not allow user-controlled input to modify the query structure.
 
 ### Cookies
 

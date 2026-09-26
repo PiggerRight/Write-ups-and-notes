@@ -29,7 +29,7 @@ This is a small note about my experience when solving CTF challenges.
 
 **File uploads** should strictly validate file types and file contents, and uploaded files should not be executable as server-side code.
 
-### SSTI - Server Side Template Injection
+### SSTI — Server Side Template Injection
 
 **SSTI** occurs when user-controlled input is interpreted as server-side template code. In Jinja, this can allow an attacker to traverse accessible Python objects and potentially reach dangerous functionality such as OS interaction (RCE).
 
@@ -87,10 +87,11 @@ If a sensitive value such as a session ID/key, username, role, or authentication
 
 ### Assembly
 
-- Standard/conventional files
-    - `index.html`, `style.css`, `script.js`
-    - `robots.txt` — gives instructions to web crawlers/bots, can reveal a path that the website doesn't link to directly.
-    - Back-up files
+- `mov` — copies data from one location/register to another.
+- `add`/`sub`/`imul` — addition/subtraction/multiplication; the result store in the first address/register.
+- `cmp` — Compares two values by internally performing a subtraction and updating flags; does not store the result.
+- `jle` — Jumps if the previous comparison indicates less than or equal (signed comparison).
+- `jmp` — Unconditionally jumps to another instruction.
 
 ## Forensics
 

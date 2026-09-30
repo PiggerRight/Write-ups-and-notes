@@ -202,7 +202,7 @@ Big Endian: Memory → 12 34 56 78
 Little Endian: Memory → 78 56 34 12
 ```
 
-## Reverse Engineering
+## Binary Exploitation
 
 ### `gets()` Buffer Overflow
 

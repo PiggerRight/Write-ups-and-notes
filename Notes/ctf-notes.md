@@ -202,6 +202,24 @@ Big Endian: Memory → 12 34 56 78
 Little Endian: Memory → 78 56 34 12
 ```
 
+## Reverse Engineering
+
+### `gets()` Buffer Overflow
+
+`gets()` reads input from `stdin` until a newline, without checking the size of the destination buffer.
+
+```C
+char buffer[16]; gets(buffer);
+```
+
+If the input is longer than the buffer can hold, `gets()` continues writing beyond the buffer's boundary. This can cause a buffer overflow, potentially overwriting adjacent memory.
+
+The safer alternative is using `fgets()` with an explicit buffer size.
+
+```C
+fgets(buffer, sizeof(buffer), stdin);
+```
+
 ## Forensics
 
 ### SVG

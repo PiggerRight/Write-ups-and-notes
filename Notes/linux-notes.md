@@ -533,6 +533,25 @@ Now `more` becomes interactive.
 - `v` — open the current file in an editor (Vim/when supported)
 - `!command` — execute a command using executables from `$SHELL` (when supported)
 
+### objdump
+
+Inspect and disassemble object files and executable binaries.
+
+```bash
+objdump [options] [program]
+```
+
+`[options]`
+
+- `-M intel` — use Intel assembly syntax
+- `-h` — header/section information
+    - `.text` → executable machine code
+    - `.data` → initialized global/static variables
+    - `.bss` → uninitialized global/static variables
+    - `.rodata` → read-only data, often strings/constants
+- `-d` — disassemble machine code (binary code)
+- `-D` — disassemble all sections of the machine code, including non-code sections
+
 
 
 ---

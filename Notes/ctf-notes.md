@@ -113,15 +113,21 @@ An executable has an **entry point** (an address), and when the OS starts it, ex
 
 ### Disassemble
 
-**Disassemble** is converting machine-code bytes into assembly instructions.
+**Disassemble** is converting machine code into assembly instructions.
 
 ```bash
-objdump -d [options] ./program
+objdump [options] [program]
 ```
 
 `[options]`
 
 - `-M intel` — use Intel assembly syntax
+- `-h` — header/section information
+    - `.text` → executable machine code
+    - `.data` → initialized global/static variables
+    - `.bss` → uninitialized global/static variables
+    - `.rodata` → read-only data, often strings/constants
+- `-d` — disassemble machine code (binary code)
 
 ### Debugger (GDB)
 
@@ -143,7 +149,7 @@ objdump -d [options] ./program
 
 Syntax:
 
-```bash
+```gdb
 x/[number][format][unit] [address]
 ```
 

@@ -154,7 +154,7 @@ ELF
  │      ├── .text ──────────→ Code
  │      ├── .rodata ────────→ Constants/strings
  │      ├── .data ──────────→ Initialized data
- │      └── .bss ───────────→ Uninitialized data
+ │      ├── .bss ───────────→ Uninitialized data
  │      └── ...
  │
  └── Section Headers ───────→ Where/how are sections described?

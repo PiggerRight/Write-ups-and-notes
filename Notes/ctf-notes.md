@@ -123,11 +123,42 @@ objdump [options] [program]
 
 - `-M intel` — use Intel assembly syntax
 - `-h` — header/section information
-    - `.text` → executable machine code
-    - `.data` → initialized global/static variables
-    - `.bss` → uninitialized global/static variables
-    - `.rodata` → read-only data, often strings/constants
 - `-d` — disassemble machine code (binary code)
+- `-D` — disassemble all sections of the machine code, including non-code sections
+
+Structure:
+
+```asm
+08049146 <main>:
+├── Address / label
+│       ↓
+│   08049146 <main>
+│
+└── Instructions
+    ├── 8049146:    55          push   %ebp
+    │                │            │       │
+    │                │            │       └── operand
+    │                │            └── instruction
+    └── address      └── machine-code bytes 
+```
+
+```text
+ELF
+ │
+ ├── Header ───────────────→ What is this file?
+ │
+ ├── Program Headers ──────→ How should OS load it?
+ │
+ ├── Sections ──────────────→ What is inside it?
+ │      │
+ │      ├── .text ──────────→ Code
+ │      ├── .rodata ────────→ Constants/strings
+ │      ├── .data ──────────→ Initialized data
+ │      └── .bss ───────────→ Uninitialized data
+ │      └── ...
+ │
+ └── Section Headers ───────→ Where/how are sections described?
+```
 
 ### Debugger (GDB)
 

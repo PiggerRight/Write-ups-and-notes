@@ -1,4 +1,4 @@
-# Reverse Engineering (REV)
+# Reverse Engineering
 
 A personal knowledge base for Reverse Engineering, documenting tools, fundamental concepts, commands, and techniques learned through CTF challenges and practice.
 
@@ -11,18 +11,20 @@ A personal knowledge base for Reverse Engineering, documenting tools, fundamenta
 ## 📚 Directory structure
 
 ```text
-REV/
+Reverse Engineering/
 ├── README.md
 ├── tools/
 │   ├── gdb.md
-│   ├── objdump.md
-│   └── ghidra.md
+│   ├── ghidra.md
+│   └── ...
 ├── concepts/
 │   ├── assembly.md
 │   ├── elf.md
-│   └── memory-layout.md
+│   └── ...
 └── writeups/
-    └── challenge-name.md
+    ├── challenge-name-1.md
+    ├── challenge-name-2.md
+    └── ...
 ```
 
 ## 🎯 Goals
